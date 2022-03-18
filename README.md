@@ -1,4 +1,5 @@
 # LibraryManagementSystem_MEANstack
+
 ## ✨ Screenshot
 
 ## Built With
@@ -19,7 +20,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-# 📎 Prerequisites
+## 📎 Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
 * npm
@@ -27,7 +28,7 @@ This is an example of how to list things you need to use the software and how to
   npm install npm@latest -g
   ```
 
-# 💻 Installation
+## 💻 Installation
 
 1. Clone the repo
    ```sh
@@ -51,7 +52,7 @@ Run the project and head out to http://localhost:4200
 
 ## 📞 Contact
 
-Gmail: phuongvu011101@gmail.com
+Gmail: phuongvu011101@gmail.com.
 Project Link: [https://github.com/vnmp11/LibraryManagementSystem_MEANstack](https://github.com/vnmp11/LibraryManagementSystem_MEANstack)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
