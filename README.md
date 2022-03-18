@@ -34,9 +34,19 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/vnmp11/LibraryManagementSystem_MEANstack.git
    ```
-3. Install NPM packages
+2. Move to backend server
    ```sh
-   npm install
+   cd backend
+   ```
+    ```sh
+   node index
+   ```
+2. Move to frontend 
+   ```sh
+   cd frontend
+   ```
+    ```sh
+   ng serve
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
