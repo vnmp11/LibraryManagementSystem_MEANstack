@@ -2,7 +2,7 @@
 
 ## ✨ Screenshot
 
-## Built With
+## 📣 Built With
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
@@ -52,7 +52,7 @@ Run the project and head out to http://localhost:4200
 
 ## 📞 Contact
 
-Gmail: phuongvu011101@gmail.com.
-Project Link: [https://github.com/vnmp11/LibraryManagementSystem_MEANstack](https://github.com/vnmp11/LibraryManagementSystem_MEANstack)
+* Gmail: phuongvu011101@gmail.com.
+* Project Link: [https://github.com/vnmp11/LibraryManagementSystem_MEANstack](https://github.com/vnmp11/LibraryManagementSystem_MEANstack)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
