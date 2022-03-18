@@ -1,107 +1,80 @@
 # LibraryManagementSystem_MEANstack
-Library Management System Web Application with MEAN stack
-# Title / Repository Name
+## ✨ Demo
 
-## About / Synopsis
+### Built With
 
-* What is it, what does it do / Abstract
-* Project status: working/prototype
-* Nuxeo Support
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-See real examples:
+* [Next.js](https://nextjs.org/)
+* [React.js](https://reactjs.org/)
+* [Vue.js](https://vuejs.org/)
+* [Angular](https://angular.io/)
+* [Svelte](https://svelte.dev/)
+* [Laravel](https://laravel.com)
+* [Bootstrap](https://getbootstrap.com)
+* [JQuery](https://jquery.com)
 
-* <https://github.com/nuxeo/nuxeo/blob/master/README.md>
-* <https://github.com/nuxeo/nuxeo-drive/blob/master/README.md>
-* <https://github.com/nuxeo/nuxeo-sdk-ios/blob/master/README.md>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-## Table of contents
 
-Use for instance <https://github.com/ekalinin/github-markdown-toc>:
 
-> * [Title / Repository Name](#title--repository-name)
->   * [About / Synopsis](#about--synopsis)
->   * [Table of contents](#table-of-contents)
->   * [Installation](#installation)
->   * [Usage](#usage)
->     * [Screenshots](#screenshots)
->     * [Features](#features)
->   * [Code](#code)
->     * [Content](#content)
->     * [Requirements](#requirements)
->     * [Limitations](#limitations)
->     * [Build](#build)
->     * [Deploy (how to install build product)](#deploy-how-to-install-build-product)
->   * [Resources (Documentation and other links)](#resources-documentation-and-other-links)
->   * [Contributing / Reporting issues](#contributing--reporting-issues)
->   * [License](#license)
->   * [About Nuxeo](#about-nuxeo)
+<!-- GETTING STARTED -->
+## Getting Started
 
-## Installation
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
-Sample:
+### Prerequisites
 
-* From the Nuxeo Marketplace: install [the Sample Nuxeo Package](https://connect.nuxeo.com/nuxeo/site/marketplace/package/nuxeo-sample).
-* From the command line: `nuxeoctl mp-install nuxeo-sample`
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-## Usage
+### Installation
 
-### Screenshots
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-### Features
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your API in `config.js`
+   ```js
+   const API_KEY = 'ENTER YOUR API';
+   ```
 
-## Code
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-[![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=/nuxeo/addons_nuxeo-sample-project-master)](https://qa.nuxeo.org/jenkins/job/nuxeo/job/addons_nuxeo-sample-project-master/)
+## 🚀 Usage
 
-### Content
 
-Description, sub-modules organization...
+```sh
+npx readme-md-generator
+```
 
-### Requirements
+Or use default values for all questions (`-y`):
 
-See [CORG/Compiling Nuxeo from sources](http://doc.nuxeo.com/x/xION)
+```sh
+npx readme-md-generator -y
+```
 
-Sample: <https://github.com/nuxeo/nuxeo/blob/master/nuxeo-distribution/README.md>
+Use your own `ejs` README template (`-p`):
 
-### Limitations
+```sh
+npx readme-md-generator -p path/to/my/own/template.md
+```
+<!-- CONTACT -->
+## Contact
 
-Sample: <https://github.com/nuxeo-archives/nuxeo-features/tree/master/nuxeo-elasticsearch>
+Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 
-### Build
+Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
-    mvn clean install
-
-Build options:
-
-* ...
-
-### Deploy (how to install build product)
-
-Direct to MP package if any. Otherwise provide steps to deploy on Nuxeo Platform:
-
- > Copy the built artifacts into `$NUXEO_HOME/templates/custom/bundles/` and activate the `custom` template.
-
-## Resources (Documentation and other links)
-
-## Contributing / Reporting issues
-
-Link to JIRA component (or project if there is no component for that project). Samples:
-
-* [Link to component](https://jira.nuxeo.com/issues/?jql=project%20%3D%20NXP%20AND%20component%20%3D%20Elasticsearch%20AND%20Status%20!%3D%20%22Resolved%22%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC%2C%20created%20ASC)
-* [Link to project](https://jira.nuxeo.com/secure/CreateIssue!default.jspa?project=NXP)
-
-## License
-
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
-
-## About Nuxeo
-
-Nuxeo Platform is an open source Content Services platform, written in Java. Data can be stored in both SQL & NoSQL databases.
-
-The development of the Nuxeo Platform is mostly done by Nuxeo employees with an open development model.
-
-The source code, documentation, roadmap, issue tracker, testing, benchmarks are all public.
-
-Typically, Nuxeo users build different types of information management solutions for [document management](https://www.nuxeo.com/solutions/document-management/), [case management](https://www.nuxeo.com/solutions/case-management/), and [digital asset management](https://www.nuxeo.com/solutions/dam-digital-asset-management/), use cases. It uses schema-flexible metadata & content models that allows content to be repurposed to fulfill future use cases.
-
-More information is available at [www.nuxeo.com](https://www.nuxeo.com).
+<p align="right">(<a href="#top">back to top</a>)</p>
