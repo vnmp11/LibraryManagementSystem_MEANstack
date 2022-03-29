@@ -1,0 +1,160 @@
+<div class="page-header">
+    <h3 class="page-title">
+      BOOKS
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:;">Books</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Book</li>
+      </ol>
+    </nav>
+</div>
+<div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Add A New Book</h4>
+        <form class="form-sample">
+          <p class="card-description">
+            Book infomation
+          </p>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">ID</label>
+                <div class="col-sm-9">
+                  <input [(ngModel)]="newBook._id" type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label required">Category</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="kind">
+                    <option>Violent</option>
+                    <option>Action</option>
+                    <option>Scence</option>
+                    <option>Comedy</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label for="title" class="col-sm-3 col-form-label required">Title</label>
+                <div class="col-sm-9">
+                  <input id="title" type="text" [(ngModel)]="newBook.title" [ngClass]="{'input-error': formControls.controls.option1.isValid}" class="form-control" name="title"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Edition</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="edition"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label required">Author</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [(ngModel)]="newBook.author" name="author"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Publisher</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="publisher"/>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label required">Price</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" [(ngModel)]="newBook.price" name="price" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label ">Copyright</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="copyright" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label required">Quantity</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="quantity"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Image</label>
+                <div class="input-group col-sm-9">
+
+                  <input type="text" class="form-control file-upload-info">
+
+                  <span class="input-group-append">
+                    <button class="file-upload-browse btn btn-primary btn-fw" type="button">Upload</button>
+                  </span>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Image</label>
+                <div class="input-group col-sm-9">
+                  <input type="file" id="browse" name="fileupload" style="display: none" (change)="Handlechange()"/>
+                  <input type="text" id="filename" class="form-control file-upload-info"  placeholder="Upload Image" (change)="selectImage($event)">
+                  <span class="input-group-append">
+                    <button (click)="HandleBrowseClick()" class="file-upload-browse btn btn-primary btn-fw" type="button">Upload</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="image" class="text-white">Upload image</label>
+              <input type="file" class="form-control" name="image" (change)="selectImage($event)" />
+            </div>
+            
+          </div>
+          <div class="form-group">
+            <label for="exampleTextarea1">Book Description</label>
+            <textarea class="form-control" id="exampleTextarea1" [(ngModel)]="newBook.description" rows="4" name="description"></textarea>
+          </div>
+
+          <div class="float-right">
+            <button id="Add" (click)="post()" type="button" class="btn btn-primary btn-fw">
+              <i class="mdi mdi-upload btn-icon-prepend"></i>
+              Add Book
+            </button>
+          </div>
+
+         
+       
+        </form>
+      </div>
+    </div>
+</div>

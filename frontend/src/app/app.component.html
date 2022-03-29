@@ -1,29 +1,18 @@
-<navbar></navbar>
-
-<!--grid-->
-<div class="row">
-  <div class="col-lg-3" >
-
-    <!--user-->
-    <div class="card" >
-      <div class="card-header">
-        Login
+<div class="container-scroller">
+  <app-navbar *ngIf="showNavbar"></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar *ngIf="showSidebar"></app-sidebar>
+    <div class="main-panel" [ngClass]="{ 'main-panel-only' : !showSidebar }">
+      <div class="content-wrapper">
+        <app-spinner *ngIf="isLoading"></app-spinner>
+        <div contentAnimate *ngIf="!isLoading" class="h-100">
+          <router-outlet></router-outlet>
+        </div>
       </div>
-      <div class="card-body">
-      </div>
+      <app-footer *ngIf="showFooter"></app-footer>
+      <!-- partial -->
     </div>
-    <!--user-->
-
-
+    <!-- main-panel ends -->
   </div>
-
-
-
-
-  <div class="col-lg-9" >
-
-    <router-outlet></router-outlet>
-  </div>
+  <!-- page-body-wrapper ends -->
 </div>
-<!--grid-->
-
