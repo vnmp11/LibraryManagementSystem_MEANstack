@@ -11,6 +11,7 @@ export class SidebarComponent implements OnInit {
   public booksCollapsed = false;
   public usersCollapsed = false;
   public profileCollapsed = false;
+  public itemsCollapsed = false;
 
   constructor() { }
 
@@ -39,7 +40,14 @@ export class SidebarComponent implements OnInit {
     {
       this.usersCollapsed = false;
     }
-   
+    if (this.profileCollapsed == true)
+    {
+      this.profileCollapsed = false
+    }
+    if (this.itemsCollapsed == true)
+    {
+      this.itemsCollapsed = false
+    }
   }
 
   checkOpenUser(){
@@ -47,15 +55,43 @@ export class SidebarComponent implements OnInit {
     {
       this.booksCollapsed = false;
     }
-   
+    if (this.profileCollapsed == true)
+    {
+      this.profileCollapsed = false
+    }
+    if (this.itemsCollapsed == true)
+    {
+      this.itemsCollapsed = false
+    }
   }
 
-  check(colapsed)
-  {
-    alert("vao");
-    if (colapsed == true)
+  checkOpenMyProfile(){
+    if (this.booksCollapsed == true)
     {
-      colapsed = false;
+      this.booksCollapsed = false;
+    }
+    if (this.usersCollapsed == true)
+    {
+      this.usersCollapsed = false;
+    }
+    if (this.itemsCollapsed == true)
+    {
+      this.itemsCollapsed = false
+    }
+  }
+
+  checkOpenItems(){
+    if (this.booksCollapsed == true)
+    {
+      this.booksCollapsed = false;
+    }
+    if (this.usersCollapsed == true)
+    {
+      this.usersCollapsed = false;
+    }
+    if (this.profileCollapsed == true)
+    {
+      this.profileCollapsed = false
     }
   }
   

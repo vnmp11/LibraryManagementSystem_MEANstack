@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BookService } from 'src/app/service/book.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addbook',
@@ -9,7 +10,7 @@ import { BookService } from 'src/app/service/book.service';
 })
 export class AddBookComponent implements OnInit {
 
-  constructor( private bookService: BookService){
+  constructor( private bookService: BookService,  private formBuilder: FormBuilder){
     bookService.getBook().subscribe(data=>{
       console.log(data);
       this.arrBook = data;
@@ -17,15 +18,32 @@ export class AddBookComponent implements OnInit {
    }
   
   ngOnInit() {
+    this.addBookForm = this.formBuilder.group({
+      title:  ['', [Validators.required, Validators.maxLength(30)]],
+      author:  ['', Validators.required],
+      price:  ['', Validators.required],
+      quantity: ['', Validators.required],
+      kind: ['', Validators.required],
+      copyright: [''],
+      publisher: [''],
+      edition: [''],
+      description: [''],
+      image: [''],
+
+    });
   }
 
   form!: FormGroup;
+  addBookForm: FormGroup;
 
-    public newBook = {title:'', author:'', description:'', price:'', _id:"", image:"", status:"", idBorrower:'', kind :'',dateCreate:''};
+    public newBook = {title:'', author:'', description:'', price:'', _id:"", image:"", status:"", idBorrower:'', kind :'',dateCreate:'',edition:'' ,publisher:'' ,quantity:'' ,copyright:'' };
     image: any;
 
     //day la list Book
     arrBook:any = []
+    isFormSubmitted = false;
+
+    
 
     checkSelected(){
       var e = document.getElementById("kind") as HTMLSelectElement;
@@ -33,9 +51,9 @@ export class AddBookComponent implements OnInit {
      //alert(this.newBook.kind);
     }
 
-    
     post() {
 
+      this.isFormSubmitted = true;
 
       this.checkSelected();
 
@@ -45,14 +63,21 @@ export class AddBookComponent implements OnInit {
       formData.append('description', this.newBook.description);
       formData.append('price', this.newBook.price);
       formData.append('file', this.image);
-
-
       formData.append('kind', this.newBook.kind);
+      formData.append('quantity', this.newBook.quantity);
+      formData.append('copyright', this.newBook.copyright);
+      formData.append('publisher', this.newBook.publisher);
+      formData.append('edition', this.newBook.edition);
       formData.append('dateCreate', Date.now().toString());
 
       console.log(formData);
+      // Return if form is invalid
+      if (this.addBookForm.invalid) {
+        return;
+      }
 
       this.bookService.addBook(formData);
+      Swal.fire('Success!', 'Added Book Successfully!', 'success')
 
     }
 
@@ -85,6 +110,8 @@ export class AddBookComponent implements OnInit {
       if (event.target.files.length > 0) {
         const file = event.target.files[0];
         this.image = file;
+        (document.getElementById("filename") as HTMLInputElement).value = (document.getElementById("image") as HTMLInputElement).files[0].name;
+
       }
     }
 
@@ -105,5 +132,20 @@ export class AddBookComponent implements OnInit {
 
 
     } 
+
+    resetForm()
+  {
+    (document.getElementById("title") as HTMLInputElement).value = "";
+    (document.getElementById("author") as HTMLInputElement).value = "";
+    (document.getElementById("price") as HTMLInputElement).value = "";
+    (document.getElementById("edition") as HTMLInputElement).value = "";
+    (document.getElementById("publisher") as HTMLInputElement).value = "";
+    (document.getElementById("quantity") as HTMLInputElement).value = "";
+    (document.getElementById("description") as HTMLInputElement).value = "";
+    (document.getElementById("copyright") as HTMLInputElement).value = "";
+    (document.getElementById("image") as HTMLInputElement).value = "";
+    (document.getElementById("kind") as HTMLInputElement).value = undefined;
+    
+  }
 
 }

@@ -1,10 +1,16 @@
 .text-center {
   text-align: center;
   color: theme-colors(primary);
+  font-size: 14px;
 }
 footer{
   text-align: center;
-  padding: 5px;
+  padding: 7px;
   background-color: white;
   color: theme-colors(primary);
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  height: 2.5rem; 
 }

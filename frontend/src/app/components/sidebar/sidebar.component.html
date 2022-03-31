@@ -20,7 +20,7 @@
       </a>
     </li>
     <li class="nav-item" [ngClass]="{'active' : detail.isActive || change_password.isActive  }">
-      <a class="nav-link" (click)="profileCollapsed = !profileCollapsed" [attr.aria-expanded]="profileCollapsed" aria-controls="profile-ui">
+      <a class="nav-link" (click)="profileCollapsed = !profileCollapsed; checkOpenMyProfile()" [attr.aria-expanded]="profileCollapsed" aria-controls="profile-ui">
         <span class="menu-title">My Profile</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-account menu-icon"></i>
@@ -57,6 +57,20 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" routerLink="users/add_user" routerLinkActive="active" #add_user="routerLinkActive">Add User</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="users/view_users" routerLinkActive="active" #view_users="routerLinkActive">View Users</a></li>
+         
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item" [ngClass]="{'active' : category.isActive }">
+      <a class="nav-link"  (click)="itemsCollapsed = !itemsCollapsed; checkOpenItems()" [attr.aria-expanded]="itemsCollapsed" aria-controls="items-ui">
+        <span class="menu-title">Manage Items</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
+      </a>
+      <div class="collapse" id="items-ui" [ngbCollapse]="!itemsCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="items/category" routerLinkActive="active" #category="routerLinkActive">Category</a></li>
          
         </ul>
       </div>

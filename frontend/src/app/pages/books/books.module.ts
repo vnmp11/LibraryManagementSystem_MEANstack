@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AddBookComponent } from './addbook/addbook.component';
 import { ViewBooksComponent } from './viewbooks/viewbooks.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
     { path: 'add_book', component: AddBookComponent },
@@ -19,7 +19,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ReactiveFormsModule 
   ]
 })
 export class BooksModule { }

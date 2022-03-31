@@ -13,7 +13,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Add A New User</h4>
-        <form class="form-sample">
+        <form [formGroup]="addUserForm" class="form-sample" (ngSubmit)="post()">
           <p class="card-description">
             Personal info
           </p>
@@ -22,8 +22,13 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label required">Name</label>
                 <div class="col-sm-9">
-                  <input [(ngModel)]="newUser.name" type="text"  class="form-control" name="name"/>
+                  <input id="name" formControlName="name" [(ngModel)]="newUser.name" type="text" class="form-control" name="name" [ngClass]="{ 'is-invalid': (isFormSubmitted && addUserForm.controls.name.errors) || (!addUserForm.controls.name.pristine && addUserForm.controls.name.invalid) }">
+                  <div class="invalid-feedback"
+                    *ngIf="(isFormSubmitted && addUserForm.controls.name.errors) || (!addUserForm.controls.name.pristine && addUserForm.controls.name.invalid)">
+                    <div *ngIf="addUserForm.controls.name.errors.required">Name is required</div>
+                  </div>
                 </div>
+
               </div>
             </div>
             <div class="col-md-6">
@@ -59,7 +64,13 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label required">Phone No.</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control" [(ngModel)]="newUser.phone" name="phone"/>
+                  <input id="phone" type="tel" formControlName="phone" class="form-control" [(ngModel)]="newUser.phone" name="phone" [ngClass]="{ 'is-invalid': (isFormSubmitted && addUserForm.controls.phone.errors) || (!addUserForm.controls.phone.pristine && addUserForm.controls.phone.invalid) }">
+                  
+                  <div class="invalid-feedback"
+                  *ngIf="(isFormSubmitted && addUserForm.controls.phone.errors) || (!addUserForm.controls.phone.pristine && addUserForm.controls.phone.invalid)">
+                  <div *ngIf="addUserForm.controls.phone.errors.required">Phone number is required</div>
+
+                </div>
                 </div>
               </div>
             </div>
@@ -68,7 +79,14 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label required">Password</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" [(ngModel)]="newUser.password" name="password" />
+                  <input id="password" type="password" formControlName="password" class="form-control" [(ngModel)]="newUser.password" name="password" 
+                  [ngClass]="{ 'is-invalid': (isFormSubmitted && addUserForm.controls.password.errors) || (!addUserForm.controls.password.pristine && addUserForm.controls.password.invalid) }">
+
+                  <div class="invalid-feedback"
+                        *ngIf="(isFormSubmitted && addUserForm.controls.password.errors) || (!addUserForm.controls.password.pristine && addUserForm.controls.password.invalid)">
+                        <div *ngIf="addUserForm.controls.password.errors.required">Password is required</div>
+                        <div *ngIf="addUserForm.controls.password.errors.minlength">Minimum 6 characters required</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -80,7 +98,15 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label required">Email</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" [(ngModel)]="newUser.email" name="email"/>
+                  <input id="email" type="text" formControlName="email" class="form-control" [(ngModel)]="newUser.email" name="email"
+                  [ngClass]="{ 'is-invalid': (isFormSubmitted && addUserForm.controls.email.errors) || (!addUserForm.controls.email.pristine && addUserForm.controls.email.invalid) }">
+                    
+                <div class="invalid-feedback"
+                  *ngIf="(isFormSubmitted && addUserForm.controls.email.errors) || (!addUserForm.controls.email.pristine && addUserForm.controls.email.invalid)">
+                  <div *ngIf="addUserForm.controls.email.errors.required">Email is required</div>
+                  <div *ngIf="addUserForm.controls.email.errors.pattern">Enter valid email</div>
+
+                </div>
                 </div>
               </div>
             </div>
@@ -90,21 +116,19 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label ">Address</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" [(ngModel)]="newUser.address"  name="address"/>
+                  <input id="address" type="text" formControlName="address" class="form-control" [(ngModel)]="newUser.address" name="address">           
                 </div>
               </div>
-          </div>
+            </div>
           
           </div>
-
-    
 
           <div class="row">
             <div class="col-md-6">
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label required">DOB</label>
                 <div class="col-sm-9">
-                  <input type="date" class="form-control" [(ngModel)]="newUser.dob" name="dob"/>
+                  <input formControlName="dob" id="dob" type="date" class="form-control" [(ngModel)]="newUser.dob" name="dob" min="1980-01-01" max="2012-01-01"/>
                 </div>
               </div>
             </div>
@@ -126,10 +150,13 @@
           </div>
           
           <div class="float-right">
-            <button (click)="post()" type="button" class="btn btn-primary btn-fw">
+            <button type="reset" (click)="post(); resetForm();" type="button" class="btn btn-primary btn-fw">
               <i class="mdi mdi-upload btn-icon-prepend"></i>
               Add User
             </button>
+
+            <a type="submit" class="btn btn-danger btn-sm" (click)="closeModal('close')"
+            *ngIf="urlParams">Cancel</a>
           </div>
          
        

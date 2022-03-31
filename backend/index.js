@@ -123,7 +123,8 @@ app.get("/user",function(req,res){
             password: req.body.password,
             phone: req.body.phone,
             name: req.body.name,
-            dob: "req.body.dob",
+            dob: req.body.dob,
+            address: req.body.address,
             image: req.file.filename,
             //file:req.file.filename
             
@@ -133,6 +134,7 @@ app.get("/user",function(req,res){
             console.log("save reader fail"+err);
             res.json({kq:0});
         }else{
+            console.log(newUser);
             console.log("save reader ok");
             alert(newUser.email);
             
@@ -254,7 +256,11 @@ app.post("/api/addBook", upload.single('file'), function(req,res){
             status: 0,
             idBorrower: "",
             kind: req.body.kind,
-            dateCreate: req.body.dateCreate
+            dateCreate: req.body.dateCreate,
+            quantity: req.body.quantity,
+            edition: req.body.edition,
+            publisher: req.body.publisher,
+            copyright: req.body.copyright,
         });
         newBook.save(function(err, result){
             if(err){

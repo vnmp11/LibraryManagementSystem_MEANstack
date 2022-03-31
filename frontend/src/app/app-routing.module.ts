@@ -11,6 +11,8 @@ const routes: Routes = [
   { path: 'books', loadChildren: () => import('./pages/books/books.module').then(m => m.BooksModule) },
   { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule) },
   { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
+  { path: 'items', loadChildren: () => import('./pages/items/items.module').then(m => m.ItemsModule) },
+  { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsDemoModule) },
   { path: 'forms', loadChildren: () => import('./forms/form.module').then(m => m.FormModule) },
   { path: 'icons', loadChildren: () => import('./icons/icons.module').then(m => m.IconsModule) },
