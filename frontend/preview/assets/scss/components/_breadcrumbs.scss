@@ -25,7 +25,7 @@
       }
       a{
         position: relative;
-        color: inherit;
+        color: theme-color(primary);
         border: 1px solid $breadcrumb-item-bg;
         display: inline-block;
         vertical-align: top;

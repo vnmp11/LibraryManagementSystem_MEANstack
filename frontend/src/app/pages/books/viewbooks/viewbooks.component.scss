@@ -10,7 +10,6 @@ body {
   min-width: 1000px;
   background: #fff;
   padding: 0px;
-  box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 .table-title {
   padding-bottom: 10px;
@@ -20,6 +19,9 @@ body {
 .table-title h2 {
   margin: 0px 0 0;
   font-size: 22px;
+}
+.column-title {
+  color: theme-color(primary) ;
 }
 .search-box {
   position: relative;        
@@ -33,7 +35,7 @@ body {
   box-shadow: none;
 }
 .search-box input:focus {
-  border-color: #3FBAE4;
+  border-color: theme-color(primary);
 }
 .search-box i {
   color: #a0a5b1;
@@ -57,7 +59,7 @@ table.table th i {
   cursor: pointer;
 }
 table.table td:last-child {
-  width: 130px;
+  width: 120px;
 }
 table.table td a {
   color: #a0a5b1;
@@ -65,7 +67,7 @@ table.table td a {
   margin: 0 5px;
 }
 table.table td a.view {
-  color: #03A9F4;
+  color: #5E5CDB;
 }
 table.table td a.edit {
   color: #FFC107;
@@ -85,7 +87,7 @@ table.table td i {
   font-size: 95%;
   width: 30px;
   height: 30px;
-  color: #999;
+  color: th-color(primary);
   margin: 0 2px;
   line-height: 30px;
   border-radius: 30px !important;
@@ -93,16 +95,16 @@ table.table td i {
   padding: 0;
 }
 .pagination li a:hover {
-  color: #666;
+  color: #fff;
 }	
 .pagination li.active a {
   background: theme-color(primary);
 }
 .pagination li.active a:hover {        
-  background: theme-color(primary);
+  background: #6051ff;
 }
 .pagination li.disabled i {
-  color: rgb(165, 37, 37);
+  color: theme-color(primary);
 }
 .pagination li i {
   font-size: 16px;
@@ -113,3 +115,67 @@ table.table td i {
   margin-top: 6px;
   font-size: 95%;
 }    
+.modal-header{
+  // background-color: #5E5CDB;
+  // color: #fff;
+  
+  color: #5E5CDB;
+  margin-left:10px
+}
+.btn-light{
+  background-color: #5E5CDB;
+  color: #fff;
+}
+.btn-light:hover {
+  background-color :#5250db;
+  color: #fff;
+
+}
+
+.btn-dark{
+  background-color: #d33;
+  color: #fff;
+  border-color: transparent;
+}
+.btn-dark:hover {
+  background-color :rgb(203, 46, 46);
+  color: #fff;
+  border-color: transparent;
+}
+
+.close {
+  color: #5E5CDB;
+  padding: 0 8px;
+}
+.close:hover {
+  color: #5250db;
+
+}
+
+.breadcrumb{
+  background-color: transparent;
+}
+
+.breadcrumb-item{
+  color:#5E5CDB;
+  
+}
+.color-item{
+  color:#5E5CDB;
+  
+}
+
+.font-item{
+font-size: 14px;  
+}
+
+
+.padding{
+  margin-top: 5px;
+  padding-top: 5px;  
+}
+
+.padding-form{
+  margin-bottom: 0px;
+  padding-bottom: 0px;  
+}

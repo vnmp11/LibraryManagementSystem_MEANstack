@@ -44,7 +44,7 @@
         cursor: pointer;
 
         i {
-          color: inherit;
+          color: #5E50F9;
 
           &.menu-icon {
             font-size: $sidebar-icon-font-size;
@@ -72,8 +72,8 @@
             color: $sidebar-menu-arrow-color;
             &:before{
               content: "\f0141";
-              font-size: inherit;
-              color: inherit;
+              font-size: #5E50F9;
+              color: #5E50F9;
             }
             + .menu-icon {
               margin-left: .25rem;
@@ -87,7 +87,7 @@
         }
 
         .menu-title {
-          color: inherit;
+          color: #5E50F9;
           display: inline-block;
           font-size: $sidebar-menu-font-size;
           line-height: 1;
@@ -111,11 +111,13 @@
       &.active {
         .nav-link {
           .menu-title {
-            color: theme-color(primary);
+            background: $red;
+
+            color: $red;
             font-family: $type1-medium;            
           }
           i {
-            color: theme-color(primary);
+            color: $red;
           }
         }
       }
@@ -188,11 +190,13 @@
       margin-bottom: 20px;
       margin-top:0;
       list-style: none;
+      
 
       .nav-item {
         padding: 0;
         .nav-link {
           color: $sidebar-submenu-color;
+
           padding: $sidebar-submenu-item-padding;
           position: relative;
           font-size: $sidebar-submenu-font-size;
@@ -215,8 +219,8 @@
             font-size: .75rem;
           }
           &.active {
-            color: theme-color(primary);
-            background: transparent;
+            color: #e52d27;
+            background: #e52d27;
           }
           &:hover {
             color: #111;
@@ -325,6 +329,7 @@
         &:not(.sub-menu) {
           .nav-item {
             &.active {
+              background-color: #e52d27;
               border-radius: 0;
             }
             &:hover {
@@ -363,7 +368,13 @@
     -o-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
     &.active {
+      color:#e52d27;
+
       right: 0;
     }
   }
+}
+
+.active{
+  color: #e52d27;
 }

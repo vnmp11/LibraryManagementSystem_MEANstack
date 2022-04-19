@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head style="display: none;">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Bootstrap Simple Data Table</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+</head>
+
+<div class="page-header">
+    <h3 class="page-title">
+      MANAGE ITEMS
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:;">Manage Items</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Category</li>
+      </ol>
+    </nav>
+</div>
+<div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        
+          
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8 page-title"><h2><b>Category Book</b></h2></div>
+                    <div class="col-sm-4">
+                        <div class="search-box">
+                            <i class="material-icons">&#xE8B6;</i>
+                            <input type="text" class="form-control" placeholder="Search&hellip;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table  style="width:600px;" class="table table-striped table-hover table-bordered">
+                <thead >
+                    <tr >
+                        <th style="background-color: #5E5CDB; color: #fff;" >No.</th>
+                        <th style="background-color: #5E5CDB; color: #fff;" >Category</th>
+                        <th style="background-color: #5E5CDB; color: #fff;" >Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cates of arrCate; let i = index" >
+                        <td> 
+                           {{i+1}}
+                        </td>
+                        
+                         <td> 
+                            {{cates.name}}
+                         </td>
+                       
+                        <td>
+                            <a href="javascript:" (click)="open(add)" class="add" title="Add" data-toggle="tooltip"><i class="material-icons">add_circle</i></a>
+                            <a href="javascript:" (click)="delete(cates)" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+      </div>
+ 
+</div>
+<!-- Add New Category -->
+<ng-template #add let-modal>
+    <div class="modal-header" ngbAutofocus>
+      <h4 class="modal-title" id="modal-basic-title">Add New Category</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="col-12 grid-margin padding-form ">
+          <div class="card-body ">
+            <form [formGroup]="addCateForm" class="form-sample padding-form">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label for="name" class="col-sm-3 col-form-label required">Name</label>
+                    <div class="col-sm-9">
+                      <input id="name" type="text" formControlName="name" class="form-control" [(ngModel)]="newCate.name" name="name" [ngClass]="{ 'is-invalid': (isFormSubmitted && addCateForm.controls.name.errors) || (!addCateForm.controls.name.pristine && addCateForm.controls.name.invalid) }"/>
+
+                      <div class="invalid-feedback"
+                      *ngIf="(isFormSubmitted && addCateForm.controls.name.errors) || (!addCateForm.controls.name.pristine && addCateForm.controls.name.invalid)">
+                      <div *ngIf="addCateForm.controls.name.errors.required">Name is required</div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+            </form>
+          </div>
+     
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Cancel</button>
+        <button type="button" (click)="addCategory(); modal.close('Save click'); " class="btn btn-light" >Add</button>
+
+    </div>
+  </ng-template>

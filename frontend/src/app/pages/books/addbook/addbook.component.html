@@ -1,10 +1,10 @@
 <div class="page-header">
     <h3 class="page-title">
-      BOOKS
+      MANAGE BOOKS
     </h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:;">Books</a></li>
+        <li class="breadcrumb-item"><a href="javascript:;">Manage Books</a></li>
         <li class="breadcrumb-item active" aria-current="page">Add Book</li>
       </ol>
     </nav>
@@ -27,7 +27,7 @@
                   <div class="invalid-feedback"
                   *ngIf="(isFormSubmitted && addBookForm.controls.title.errors) || (!addBookForm.controls.title.pristine && addBookForm.controls.title.invalid)">
                   <div *ngIf="addBookForm.controls.title.errors.required">Title is required</div>
-                  <div *ngIf="addBookForm.controls.title.errors.maxlength">Maximum 30 characters required</div>
+                  <div *ngIf="addBookForm.controls.title.errors.maxlength">Maximum 50 characters required</div>
                   </div>
                   
                 </div>
@@ -47,7 +47,7 @@
 
                   <div class="invalid-feedback"
                   *ngIf="(isFormSubmitted && addBookForm.controls.kind.errors) || (!addBookForm.controls.kind.pristine && addBookForm.controls.kind.invalid)">
-                  <div *ngIf="addBookForm.controls.title.errors.required">Category must be selected</div>
+                  <div *ngIf="addBookForm.controls.kind.errors.required">Category must be selected</div>
                   </div>
 
                 </div>
@@ -75,7 +75,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Edition</label>
                 <div class="col-sm-9">
-                  <input id="edition" type="text" formControlName="edition" class="form-control" name="edition"/>
+                  <input [(ngModel)]="newBook.edition" id="edition" type="text" formControlName="edition" class="form-control" name="edition"/>
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Publisher</label>
                 <div class="col-sm-9">
-                  <input id="publisher" type="text" formControlName="publisher" class="form-control" name="publisher"/>
+                  <input [(ngModel)]="newBook.publisher" id="publisher" type="text" formControlName="publisher" class="form-control" name="publisher"/>
                 </div>
               </div>
             </div>
@@ -111,7 +111,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label required">Quantity</label>
                 <div class="col-sm-9">
-                  <input id="quantity" type="number" formControlName="quantity" class="form-control" name="quantity" [ngClass]="{ 'is-invalid': (isFormSubmitted && addBookForm.controls.quantity.errors) || (!addBookForm.controls.quantity.pristine && addBookForm.controls.quantity.invalid) }"/>
+                  <input [(ngModel)]="newBook.quantity" id="quantity" type="number" formControlName="quantity" class="form-control" name="quantity" [ngClass]="{ 'is-invalid': (isFormSubmitted && addBookForm.controls.quantity.errors) || (!addBookForm.controls.quantity.pristine && addBookForm.controls.quantity.invalid) }"/>
                   <div class="invalid-feedback"
                     *ngIf="(isFormSubmitted && addBookForm.controls.quantity.errors) || (!addBookForm.controls.quantity.pristine && addBookForm.controls.quantity.invalid)">
                     <div *ngIf="addBookForm.controls.quantity.errors.required">Quantity is required</div>
@@ -124,7 +124,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Copyright</label>
                 <div class="col-sm-9">
-                  <input id="copyright" type="text" formControlName="copyright" class="form-control" name="copyright"/>
+                  <input id="copyright" type="text" formControlName="copyright" class="form-control" name="copyright" [(ngModel)]="newBook.copyright"/>
                 </div>
               </div>
             </div>

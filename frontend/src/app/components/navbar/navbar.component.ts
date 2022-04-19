@@ -7,7 +7,7 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./navbar.component.scss'],
   providers: [NgbDropdownConfig]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent  implements OnInit {
   public iconOnlyToggled = false;
   public sidebarToggled = false;
   

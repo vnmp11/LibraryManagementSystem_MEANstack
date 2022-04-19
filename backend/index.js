@@ -7,6 +7,7 @@ app.use(express.static("public"));
 
 var router = express.Router();
 
+
 app.listen(3000);
 
 //cho phep thu 4200 qua 3000
@@ -28,9 +29,9 @@ app.use(bodyParser.json());
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://doan2:1234@librarymanagement.obk3g.mongodb.net/LibraryManagement?retryWrites=true&w=majority', function(err){
     if(err){
-        console.log("connect error");
+        console.log("Connect error");
     }else{
-        console.log("connect successfully");
+        console.log("Connect database successfully!!");
     }
 });
 module.exports = router;
@@ -66,11 +67,12 @@ var upload = multer({
     fileFilter: function(req, file, callback){
         console.log(file);
         if(file.mimetype=="image/png"||
-        file.mimetype=="image/png"){
+        file.mimetype=="image/jpeg" ||
+        file.mimetype=="image/jpg"){
 
             callback(null,true)
         }else{
-            return callback(new Error('Only image are allowed'))
+            return callback(new Error('Only images are allowed'))
         }
     }
   });
@@ -81,9 +83,10 @@ var upload = multer({
 app.get("/category",function(req,res){
     res.render("category");
 });
-app.post("/category",function(req,res){
-    var newCate = new Category({
-        name: req.body.txtCate,
+
+app.post("/api/addCategory",function(req,res){
+    const newCate = new Category({
+        name: req.body.name,
         cate_id: []
     });
     newCate.save(function(err){
@@ -91,11 +94,27 @@ app.post("/category",function(req,res){
             console.log("save cate fail"+err);
             res.json({kq:0});
         }else{
+            console.log("NAME: "+req.body.name);
             console.log("save cate ok");
             res.json({kq:1});
         }
     });
     
+});
+//delete category
+app.post("/api/deleteCategory",jsonParser,function(req,res){
+    Category.findByIdAndRemove(req.body._id, function(error) {
+
+        console.log(req.body._id);
+        if (error) {
+          //return next(error);
+          console.log(error);
+        } else {
+         
+            console.log(req.body._id);
+          console.log('Deleted book successfully!');
+        }
+      });
 });
 
 //xuat list category
@@ -131,13 +150,11 @@ app.get("/user",function(req,res){
         });
     newUser.save(function(err, result){
         if(err){
-            console.log("save reader fail"+err);
+            console.log("Save reader fail"+err);
             res.json({kq:0});
         }else{
             console.log(newUser);
-            console.log("save reader ok");
-            alert(newUser.email);
-            
+            console.log("Save reader ok");            
         }
     }); 
     console.log(JSON.stringify(req.body));
@@ -158,6 +175,16 @@ app.post("/api/user", function(req,res){
     });
  });
 
+ //get a user
+ app.get("/api/user/:id", function(req,res){
+    console.log("id user: "+req.params.id);
+    User.findById(req.params.id, (err, doc) => {
+        if (!err) { 
+            console.log(doc);
+            res.json(doc); }
+        else { console.log('Error in Retriving User :' + JSON.stringify(err, undefined, 2)); }
+    });
+ });
 
 
 //Add user
@@ -173,18 +200,18 @@ app.post("/api/addUser",function(req,res){
             name: req.body.name,
             address:req.body.address,
             dob: req.body.dob,
-            image: "1647583045107avata.png",
+            image: "1648743817197avatar.png",
             sex: req.body.sex,
-            role: 'Reader',
+            role: req.body.role,
             //file:req.file.filename
             
         });
         newUser.save(function(err, result){
             if(err){
-                console.log("save reader fail"+err);
+                console.log("Save reader fail"+err);
                 res.json({kq:0});
             }else{
-                console.log("save reader ok");
+                console.log("Save reader ok");
                 
             }
         }); 
@@ -203,7 +230,28 @@ app.put("/api/updateUser",upload.single('file'),function(req,res){
             dob: req.body.dob,
             image: req.file.filename,
             sex: req.body.sex,
-            role: 'Reader',
+            role: req.body.role,
+      }, (error, data) => {
+        if (error) {
+          return next(error);
+          console.log(error)
+        } else {
+          res.json(data)
+          console.log('Reader updated successfully!')
+        }
+      })
+});
+
+app.put("/api/updateAUser",upload.single('file'), function(req,res){
+    User.findByIdAndUpdate(req.body._id, {
+            email: req.body.email,
+            password: req.body.password,
+            phone: req.body.phone,
+            name: req.body.name,
+            address:req.body.address,
+            dob: req.body.dob,
+            sex: req.body.sex,
+            role: req.body.role,
       }, (error, data) => {
         if (error) {
           return next(error);
@@ -242,6 +290,18 @@ app.post("/api/book", function(req,res){
         }
     });
  });
+
+ //Get a book
+ app.get('/api/book/:id', (req, res) => {
+
+    Book.findById(req.params.id, (err, doc) => {
+        if (!err) { 
+            console.log(doc);
+            res.json(doc); }
+        else { console.log('Error in Retriving Book :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 //Add book
 app.post("/api/addBook", upload.single('file'), function(req,res){
     const file = req.file;
@@ -275,7 +335,6 @@ app.post("/api/addBook", upload.single('file'), function(req,res){
 //// update
 
 app.put("/api/updateBook",upload.single('file'),function(req,res){
-
     Book.findByIdAndUpdate(req.body._id, {
         title: req.body.title,
         author: req.body.author,
@@ -285,6 +344,10 @@ app.put("/api/updateBook",upload.single('file'),function(req,res){
         //status: 0,
         //idBorrower: "",
         kind: req.body.kind,
+        edition: req.body.edition,
+        quantity: req.body.quantity,
+        publisher: req.body.publisher,
+        copyright: req.body.copyright,
         //dateCreate: req.body.dateCreate
       }, (error, data) => {
         if (error) {
@@ -292,10 +355,38 @@ app.put("/api/updateBook",upload.single('file'),function(req,res){
           console.log(error)
         } else {
           res.json(data)
+        
           console.log('Book updated successfully!')
         }
       })
 });
+
+app.put("/api/updateABook",upload.single('file'),function(req,res){
+    Book.findByIdAndUpdate(req.body._id, {
+        title: req.body.title,
+        author: req.body.author,
+        description: req.body.description,
+        price: req.body.price,
+        //status: 0,
+        //idBorrower: "",
+        kind: req.body.kind,
+        edition: req.body.edition,
+        quantity: req.body.quantity,
+        publisher: req.body.publisher,
+        copyright: req.body.copyright,
+        //dateCreate: req.body.dateCreate
+      }, (error, data) => {
+        if (error) {
+          //return next(error);
+          console.log(error)
+        } else {
+          res.json(data)
+        
+          console.log('Book updated successfully!')
+        }
+      })
+});
+
 
 ///delete
 app.post("/api/deleteBook",jsonParser,function(req,res){
@@ -308,7 +399,7 @@ app.post("/api/deleteBook",jsonParser,function(req,res){
         } else {
          
             console.log(req.body._id);
-          console.log('Book delete successfully!');
+          console.log('Deleted book successfully!');
         }
       });
 });

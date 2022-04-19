@@ -3,23 +3,60 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminComponent } from './layout/admin/admin.component';
+import { HomeComponent } from './layout/home/home.component';
+import { UserComponent } from './layout/user/user.component';
+import { LoginComponent } from './pages/login/login.component';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full' },
-  { path: 'admin/dashboard', component: DashboardComponent },
-  { path: 'basic-ui', loadChildren: () => import('./basic-ui/basic-ui.module').then(m => m.BasicUiModule) },
-  { path: 'books', loadChildren: () => import('./pages/books/books.module').then(m => m.BooksModule) },
-  { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule) },
-  { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
-  { path: 'items', loadChildren: () => import('./pages/items/items.module').then(m => m.ItemsModule) },
-  { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
-  { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsDemoModule) },
-  { path: 'forms', loadChildren: () => import('./forms/form.module').then(m => m.FormModule) },
-  { path: 'icons', loadChildren: () => import('./icons/icons.module').then(m => m.IconsModule) },
-  { path: 'general-pages', loadChildren: () => import('./general-pages/general-pages.module').then(m => m.GeneralPagesModule) },
-  { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule) },
-  { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
+
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+  //Admin layout
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'books', loadChildren: () => import('./pages/books/books.module').then(m => m.BooksModule) },
+      { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule) },
+      { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
+      { path: 'items', loadChildren: () => import('./pages/items/items.module').then(m => m.ItemsModule) },
+
+    ]
+  },
+
+  //Home layout
+  {
+    path: 'home', component: HomeComponent,
+  },
+
+  //User layout
+  {
+    path: 'user',
+    component: UserComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
+
+    ]
+  },
+
+  {
+    path: 'login', component: LoginComponent,
+  },
   { path: 'error-pages', loadChildren: () => import('./error-pages/error-pages.module').then(m => m.ErrorPagesModule) },
+  { path: 'basic-ui', loadChildren: () => import('./basic-ui/basic-ui.module').then(m => m.BasicUiModule) },
+
 ];
 
 @NgModule({

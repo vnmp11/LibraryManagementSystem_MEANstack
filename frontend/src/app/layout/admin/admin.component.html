@@ -1,0 +1,147 @@
+<div class="container-scroller">
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" routerLink="/"><img src="assets/images/logo.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" routerLink="/"><img src="assets/images/logo.svg" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize" (click)="toggleSidebar()">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown" ngbDropdown>
+              <a class="nav-link dropdown-toggle" id="profileDropdown" ngbDropdownToggle>
+                <div class="nav-profile-img">
+                  <img src="assets/images/faces/face.jpg" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black">My Phuong</p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown" ngbDropdownMenu aria-labelledby="profileDropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="javascript:;">
+                  <i class="mdi mdi-logout mr-2 text-primary"></i>
+                  Signout
+                </a>
+              </div>
+        
+           
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" (click)="toggleOffcanvas()">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+  <div class="container-fluid page-body-wrapper">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="javascript:;" class="nav-link">
+              <div class="nav-profile-image">
+                <img src="assets/images/faces/face.jpg" alt="profile">
+                <span class="login-status online"></span> <!--change to offline or busy as needed-->              
+              </div>
+              <div class="nav-profile-text">
+                <span class="font-weight-bold mb-2"> My Phuong</span>
+                <span class="text-secondary text-small">Librarian</span>
+              </div>
+              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+            </a>
+          </li>
+          <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
+            <a class="nav-link" routerLink="dashboard" routerLinkActive #dashboard="routerLinkActive">
+              <span class="menu-title">Dashboard</span>
+              <i class="mdi mdi-home menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item" [ngClass]="{'active' : detail.isActive || change_password.isActive  }">
+            <a class="nav-link" (click)="profileCollapsed = !profileCollapsed; checkOpenMyProfile()" [attr.aria-expanded]="profileCollapsed" aria-controls="profile-ui">
+              <span class="menu-title">My Profile</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-account menu-icon"></i>
+            </a>
+            <div class="collapse" id="profile-ui" [ngbCollapse]="!profileCollapsed">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" routerLink="profile/update_detail" routerLinkActive="active" #detail="routerLinkActive">Update Detail</a></li>
+                <li class="nav-item"> <a class="nav-link" routerLink="profile/change_password" routerLinkActive="active" #change_password="routerLinkActive">Change Password</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item" [ngClass]="{'active' : add_book.isActive || view_books.isActive  }">
+            <a class="nav-link" id="books" (click)="booksCollapsed = !booksCollapsed; checkOpenBook()" [attr.aria-expanded]="booksCollapsed" aria-controls="books-ui">
+              <span class="menu-title">Manage Books</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+            </a>
+            <div class="collapse" id="books-ui" [ngbCollapse]="!booksCollapsed">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" routerLink="books/add_book" routerLinkActive="active" #add_book="routerLinkActive">Add Book</a></li>
+                <li class="nav-item"> <a class="nav-link" routerLink="books/view_books" routerLinkActive="active" #view_books="routerLinkActive">View Books</a></li>
+               
+              </ul>
+            </div>
+          </li>
+      
+          <li class="nav-item" [ngClass]="{'active' : add_user.isActive || view_users.isActive  }">
+            <a class="nav-link"  (click)="usersCollapsed = !usersCollapsed; checkOpenUser()" [attr.aria-expanded]="usersCollapsed" aria-controls="users-ui">
+              <span id="users" class="menu-title">Manage Users</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+            <div class="collapse" id="users-ui" [ngbCollapse]="!usersCollapsed">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" routerLink="users/add_user" routerLinkActive="active" #add_user="routerLinkActive">Add User</a></li>
+                <li class="nav-item"> <a class="nav-link" routerLink="users/view_users" routerLinkActive="active" #view_users="routerLinkActive">View Users</a></li>
+               
+              </ul>
+            </div>
+          </li>
+      
+          <li class="nav-item" [ngClass]="{'active' : category.isActive }">
+            <a class="nav-link"  (click)="itemsCollapsed = !itemsCollapsed; checkOpenItems()" [attr.aria-expanded]="itemsCollapsed" aria-controls="items-ui">
+              <span class="menu-title">Manage Items</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
+            </a>
+            <div class="collapse" id="items-ui" [ngbCollapse]="!itemsCollapsed">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" routerLink="items/category" routerLinkActive="active" #category="routerLinkActive">Category</a></li>
+               
+              </ul>
+            </div>
+          </li>
+      
+        </ul>
+      </nav>
+      
+    <div class="main-panel" [ngClass]="{ 'main-panel-only' : !showSidebar }">
+      <div class="content-wrapper">
+        <app-spinner *ngIf="isLoading"></app-spinner>
+        <div contentAnimate *ngIf="!isLoading" class="h-100">
+          <router-outlet></router-outlet>
+        </div>
+
+      </div>
+
+      <footer>
+        <p class="text-center">Copyright &copy; LMS 2022</p>
+      </footer>
+      
+    </div>
+
+
+  </div>
+
+</div>

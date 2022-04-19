@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+
 <script>
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();
@@ -22,12 +23,12 @@ $(document).ready(function(){
 
 <div class="page-header">
     <h3 class="page-title">
-      BOOKS
+      MANAGE BOOKS
     </h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:;">Books</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Book</li>
+        <li class="breadcrumb-item color-item"><a href="javascript:;">Manage Books</a></li>
+        <li class="breadcrumb-item active" aria-current="page">View Books</li>
       </ol>
     </nav>
 </div>
@@ -38,7 +39,7 @@ $(document).ready(function(){
           
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8 page-title"><h2>All <b>Books</b></h2></div>
+                    <div class="col-sm-8 page-title"><h2><b>All Books</b></h2></div>
                     <div class="col-sm-4">
                         <div class="search-box">
                             <i class="material-icons">&#xE8B6;</i>
@@ -48,92 +49,59 @@ $(document).ready(function(){
                 </div>
             </div>
             <table class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title <i class="fa fa-sort"></i></th>
-                        <th>Description</th>
-                        <th>Author <i class="fa fa-sort"></i></th>
-                        <th>Category</th>
-                        <th>Quantity <i class="fa fa-sort"></i></th>
-                        <th>Actions</th>
+                <thead >
+                    <tr >
+                        <th style="background-color: #5E5CDB; color: #fff;" >ID</th>
+                        <th style="background-color: #5E5CDB; color: #fff;" >Image</th>
+                        <th style="background-color: #5E5CDB; color: #fff;" >Title </th>
+                        <th style="background-color: #5E5CDB; color: #fff;" >Author </th>
+                        <th style="background-color: #5E5CDB; color: #fff;" >Category</th>
+                        <th style="background-color: #5E5CDB; color: #fff;" >Quantity</th>
+                        <!-- <th>Quantity <i class="fa fa-sort"></i></th> -->
+                        <th style="background-color: #5E5CDB; color: #fff;" >Borrowed</th>
+                        <th style="background-color: #5E5CDB; color: #fff;" >Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Thomas Hardy</td>
-                        <td>89 Chiaroscuro Rd.</td>
-                        <td>Portland</td>
-                        <td>97219</td>
-                        <td>USA</td>
+                    <tr *ngFor="let books of arrBook; let i = index" >
+                        <td> 
+                           {{i+1}}
+                        </td>
                         <td>
-                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <img src="http://localhost:3000/uploadImage/{{books.image}}" style="height: 140px; width: 100px; border-radius: 0; " ></td>
+                        <td> 
+                            {{books.title}}
+                         </td>
+                        
+                         <td> 
+                            {{books.author}}
+                         </td>
+                         <td> 
+                            {{books.kind}}
+                         </td>
+                         <td> 
+                            {{books.quantity}}
+                         </td>
+                         <td> 
+                            {{books.quantity}}
+                         </td>
+                       
+                        <td>
+                            <a href="javascript:" (click)="open(view, books._id)" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                            <a href="javascript:" (click)="open(edit, books._id)" class="edit" title="Edit" data-toggle="modal"><i class="material-icons">&#xE254;</i></a>
+                            <a href="javascript:" (click)="delete(books)" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Maria Anders</td>
-                        <td>Obere Str. 57</td>
-                        <td>Berlin</td>
-                        <td>12209</td>
-                        <td>Germany</td>
-                        <td>
-                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Fran Wilson</td>
-                        <td>C/ Araquil, 67</td>
-                        <td>Madrid</td>
-                        <td>28023</td>
-                        <td>Spain</td>
-                        <td>
-                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Dominique Perrier</td>
-                        <td>25, rue Lauriston</td>
-                        <td>Paris</td>
-                        <td>75016</td>
-                        <td>France</td>
-                        <td>
-                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Martin Blank</td>
-                        <td>Via Monte Bianco 34</td>
-                        <td>Turin</td>
-                        <td>10100</td>
-                        <td>Italy</td>
-                        <td>
-                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>        
+                   
                 </tbody>
             </table>
             <div class="clearfix">
                 <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
                 <ul class="pagination">
                     <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
                     <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
                     <li class="page-item"><a href="#" class="page-link">4</a></li>
                     <li class="page-item"><a href="#" class="page-link">5</a></li>
                     <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
@@ -144,6 +112,293 @@ $(document).ready(function(){
  
 </div>
 
-        
+<!-- Modal View Book -->
+<ng-template #view let-modal>
+    <div class="modal-header" ngbAutofocus>
+      <h4 class="modal-title" id="modal-basic-title">View Book</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="col-12 grid-margin padding-form ">
+          <div class="card-body ">
+            <form class="form-sample padding-form">
+                <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label for="title" class="col-sm-3 col-form-label required">Title</label>
+                    <div class="col-sm-9">
+                      <input [disabled]="true" maxlength="31" id="title" class="form-control font-item" type="text" name="title">
+                     
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                      <label for="title" class="col-sm-3 col-form-label required">Category</label>
+                      <div class="col-sm-9">
+                        <input [disabled]="true" maxlength="31" id="kind" class="form-control font-item" type="text" name="title">
+                       
+                      </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label for="title" class="col-sm-3 col-form-label required ">Author</label>
+                        <div class="col-sm-9">
+                          <input [disabled]="true"  maxlength="31" id="author" class="form-control font-item" type="text" name="title">
+                         
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                          <label for="title" class="col-sm-3 col-form-label">Edition</label>
+                          <div class="col-sm-9">
+                            <input [disabled]="true"  maxlength="31" id="edition" class="form-control font-item" type="text" name="title">
+                           
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label for="title" class="col-sm-3 col-form-label required ">Price</label>
+                        <div class="col-sm-9">
+                          <input [disabled]="true" maxlength="31" id="price" class="form-control font-item" type="text" name="title">
+                         
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                          <label for="title" class="col-sm-3 col-form-label">Publisher</label>
+                          <div class="col-sm-9">
+                            <input [disabled]="true" maxlength="31" id="publisher" class="form-control font-item" type="text" name="title">
+                           
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label for="title" class="col-sm-3 col-form-label required">Quantity</label>
+                        <div class="col-sm-9">
+                          <input [disabled]="true" maxlength="31" id="quantity" class="form-control font-item" type="text" name="title">
+                         
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                          <label for="title" class="col-sm-3 col-form-label ">Copyright</label>
+                          <div class="col-sm-9">
+                            <input [disabled]="true" maxlength="31" id="copyright" class="form-control font-item" type="text" name="title">
+                           
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="title" class="col-sm-3 ">Description</label>
+                            <div class="col-sm-9">
+                                <textarea [disabled]="true" class="form-control font-item" id="description" rows="6" name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label ">Image</label>
+                          <div class="col-sm-9">
+                            <img src="http://localhost:3000/uploadImage/{{book.image}}" style="height: 140px; width: 100px; border-radius: 0; " >
+                           
+                          </div>
+                        
+                        </div>
+                      </div>
+                     
+                </div>
+
+               
+            </form>
+          </div>
+     
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Save click')">Close</button>
+
+    </div>
+  </ng-template>
+
+<!-- Modal Edit Book   -->
+<ng-template #edit let-modal>
+  <div class="modal-header" ngbAutofocus>
+    <h4 class="modal-title" id="modal-basic-title">Edit Book</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="col-12 grid-margin padding-form ">
+        <div class="card-body ">
+          <form [formGroup]="editBookForm" class="form-sample ">
+              <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label for="title" class="col-sm-3 col-form-label required">Title</label>
+                  <div class="col-sm-9">
+                    <input [(ngModel)]="newBook.title" formControlName="title" maxlength="51" id="title" class="form-control font-item" type="text" name="title" [ngClass]="{ 'is-invalid': (isFormSubmitted && editBookForm.controls.title.errors) || (!editBookForm.controls.title.pristine && editBookForm.controls.title.invalid ) }">
+                    <div class="invalid-feedback"
+                    *ngIf="(isFormSubmitted && editBookForm.controls.title.errors ) || (!editBookForm.controls.title.pristine && editBookForm.controls.title.invalid)">
+                    <div *ngIf="editBookForm.controls.title.errors.required">Title is required</div>
+                    <div *ngIf="editBookForm.controls.title.errors.maxlength">Maximum 50 characters required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group row">
+                    <label for="title" class="col-sm-3 col-form-label required">Category</label>
+                    <div class="col-sm-9">
+                      <select [(ngModel)]="newBook.kind" formControlName="kind" class="form-control font-item" id="kind" name="kind"
+                      [ngClass]="{ 'is-invalid': (isFormSubmitted && editBookForm.controls.kind.errors) || (!editBookForm.controls.kind.pristine && editBookForm.controls.kind.invalid) }">
+                        <option >Violent</option>
+                        <option>Action</option>
+                        <option>Scence</option>
+                        <option>Comedy</option>
+                      </select>
+
+                      <div class="invalid-feedback"
+                        *ngIf="(isFormSubmitted && editBookForm.controls.kind.errors) || (!editBookForm.controls.kind.pristine && editBookForm.controls.kind.invalid)">
+                        <div *ngIf="editBookForm.controls.kind.errors.nullValidator">Author is required</div>
+                      </div>
+                        
+
+                    </div>
+                  </div>
+              </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label for="title" class="col-sm-3 col-form-label required ">Author</label>
+                      <div class="col-sm-9">
+                        <input [(ngModel)]="newBook.author" formControlName="author" maxlength="31" id="author" class="form-control font-item" type="text" name="author"
+                        [ngClass]="{ 'is-invalid': (isFormSubmitted && editBookForm.controls.author.errors) || (!editBookForm.controls.author.pristine && editBookForm.controls.author.invalid) }">
+                        <div class="invalid-feedback"
+                        *ngIf="(isFormSubmitted && editBookForm.controls.author.errors) || (!editBookForm.controls.author.pristine && editBookForm.controls.author.invalid)">
+                        <div *ngIf="editBookForm.controls.author.errors.minlength">Author is required</div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group row">
+                        <label for="title" class="col-sm-3 col-form-label">Edition</label>
+                        <div class="col-sm-9">
+                          <input [(ngModel)]="newBook.edition" formControlName="edition" maxlength="31" id="edition" class="form-control font-item" type="text" name="edition">
+                         
+                        </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label for="title" class="col-sm-3 col-form-label required ">Price</label>
+                      <div class="col-sm-9">
+                        <input [(ngModel)]="newBook.price" formControlName="price" maxlength="31" id="price" class="form-control font-item" type="number" name="price"
+                        [ngClass]="{ 'is-invalid': (isFormSubmitted && editBookForm.controls.price.errors) || (!editBookForm.controls.price.pristine && editBookForm.controls.price.invalid) }">
+                        <div class="invalid-feedback"
+                        *ngIf="(isFormSubmitted && editBookForm.controls.price.errors) || (!editBookForm.controls.price.pristine && editBookForm.controls.price.invalid)">
+                        <div *ngIf="editBookForm.controls.price.errors.required">Price is required</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group row">
+                        <label for="title" class="col-sm-3 col-form-label">Publisher</label>
+                        <div class="col-sm-9">
+                          <input [(ngModel)]="newBook.publisher" formControlName="publisher" maxlength="31" id="publisher" class="form-control font-item" type="text" name="publisher">
+                         
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-3 col-form-label required">Quantity</label>
+                        <div class="col-sm-9">
+                          <input [(ngModel)]="newBook.quantity" require formControlName="quantity" maxlength="31" id="quantity" class="form-control font-item" type="number" name="quantity"[ngClass]="{ 'is-invalid': (isFormSubmitted && editBookForm.controls.quantity.errors) || (!editBookForm.controls.quantity.pristine && editBookForm.controls.quantity.invalid) }">
+                          <div class="invalid-feedback"
+                            *ngIf="(isFormSubmitted && editBookForm.controls.quantity.errors) || (!editBookForm.controls.quantity.pristine && editBookForm.controls.quantity.invalid)">
+                            <div *ngIf="editBookForm.controls.quantity.errors.required">Quantity is required</div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group row">
+                        <label for="title" class="col-sm-3 col-form-label ">Copyright</label>
+                        <div class="col-sm-9">
+                          <input [(ngModel)]="newBook.copyright" formControlName="copyright" maxlength="31" id="copyright" class="form-control font-item" type="text" name="copyright">
+                         
+                        </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+
+                  <div class="col-md-6">
+                      <div class="form-group row">
+                          <label for="title" class="col-sm-3 ">Description</label>
+                          <div class="col-sm-9">
+                              <textarea [(ngModel)]="newBook.description" formControlName="description" class="form-control font-item" id="description" rows="8" name="description"></textarea>
+                          </div>
+                      </div>
+                  </div>
+                
+                  <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label ">Image</label>
+                        <div class="col-sm-9">
+                          <img id="showImage" src="http://localhost:3000/uploadImage/{{book.image}}" style="height: 140px; width: 100px; border-radius: 0; " >
+                          <input [(ngModel)]="newBook.image" formControlName="image" id="selected-image" type="file" class="form-control font-item padding" name="image" (change)="selectImage($event)" />
+
+                        </div>
+                     
+                      </div>
+                    </div>
+                   
+              </div>
+
+             
+          </form>
+        </div>
+   
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Cancel</button>
+    <button type="button" (click)="update(edit); modal.close('Save click'); " class="btn btn-light" >Save</button>
+
+  </div>
+</ng-template>
+
 
 </html>

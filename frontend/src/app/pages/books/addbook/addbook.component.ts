@@ -11,15 +11,15 @@ import Swal from 'sweetalert2';
 export class AddBookComponent implements OnInit {
 
   constructor( private bookService: BookService,  private formBuilder: FormBuilder){
-    bookService.getBook().subscribe(data=>{
-      console.log(data);
-      this.arrBook = data;
-    });
+    // bookService.getBook().subscribe(data=>{
+    //   console.log(data);
+    //   this.arrBook = data;
+    // });
    }
   
   ngOnInit() {
     this.addBookForm = this.formBuilder.group({
-      title:  ['', [Validators.required, Validators.maxLength(30)]],
+      title:  ['', [Validators.required, Validators.maxLength(50)]],
       author:  ['', Validators.required],
       price:  ['', Validators.required],
       quantity: ['', Validators.required],

@@ -23,8 +23,9 @@ export class AddUserComponent implements OnInit {
     this.addUserForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern(PAT_EMAIL)]],
       name: ['', Validators.required],
+      role: ['', Validators.required],
       address: [''],
-      dob: [''],
+      dob: ['', Validators.required],
       phone: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -34,12 +35,16 @@ export class AddUserComponent implements OnInit {
   form!: FormGroup;
   addUserForm: FormGroup;
 
-  public newUser = {email:'', password:'', name:'', phone:'', _id:"", image:"", address:'', dob:'', sex:''};
+  public newUser = {email:'', password:'', name:'', phone:'', _id:"", image:"", address:'', dob:'', sex:'', role:''};
   image: any;
   isFormSubmitted = false;
 
   //day la list User
   arrUser:any = []
+  checkSelected(){
+    var e = document.getElementById("role") as HTMLSelectElement;
+    this.newUser.role = e.options[e.selectedIndex].value;
+  }
 
   check(){
 
@@ -65,9 +70,12 @@ export class AddUserComponent implements OnInit {
     }
 
     this.check();
-    console.log(this.newUser);
+    this.checkSelected();
+
     this.userService.addUser(this.newUser);
     Swal.fire('Success!', 'Added User Successfully!', 'success')
+
+    this.resetForm();
 
   }
 

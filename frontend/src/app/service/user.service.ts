@@ -16,6 +16,13 @@ export class UserService{
     return this.http.post("http://localhost:3000/api/user", options);
   }
 
+  getAUser(id){
+    let options = {
+      headers: new HttpHeaders().set("Content-Type","application/x-www-form-urlencoded")
+    }
+    return this.http.get("http://localhost:3000/api/user/" + id, options);
+  }
+
   addUser(newUser:any)  {
 
     console.log("readerOjb",newUser);
@@ -27,6 +34,13 @@ export class UserService{
   updateUser(formData:any)  {
     console.log("readerOjb",formData);
     return this.http.put('http://localhost:3000/api/updateUser', formData).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  updateAUser(formData:any)  {
+    console.log("readerOjb",formData);
+    return this.http.put('http://localhost:3000/api/updateAUser', formData).subscribe(res => {
       console.log(res);
     });
   }

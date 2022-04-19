@@ -44,7 +44,7 @@ $theme-colors: (
   primary:         #5E5CDB,
   secondary:       #e6e4e4,
   success:         #1bcfb4,
-  info:            #198ae3,
+  info:            #5E5CDB,
   warning:         #fed713,
   danger:          #fe7c96,
   light:           #f8f9fa,
@@ -114,9 +114,9 @@ $sidebar-width-icon: 70px;
 $sidebar-bg: $white;
 $sidebar-menu-color: #111;
 $sidebar-submenu-color: #888;
-$sidebar-menu-active-bg: $white;
+$sidebar-menu-active-bg: theme-color(primary);;
 $sidebar-menu-active-color: theme-colors(primary);
-$sidebar-menu-hover-bg: #f2edf3b6;
+$sidebar-menu-hover-bg: #f2edf39f;
 $sidebar-menu-hover-color: theme-colors(primary);
 $sidebar-submenu-hover-color: darken($sidebar-submenu-color, 20%);
 $sidebar-menu-icon-color: #bba8bff5;
@@ -277,7 +277,7 @@ $breadcrumb-custom-padding-x:       0;
 $breadcrumb-custom-item-padding-y:  0.56rem;
 $breadcrumb-custom-item-padding-x:  10px;
 $breadcrumb-custom-item-color:      $black;
-$breadcrumb-item-bg:                #dbe3e6;
+$breadcrumb-item-bg:                #fff;
 
 ////////// BREAD CRUMBS VARIABLES //////////
 
