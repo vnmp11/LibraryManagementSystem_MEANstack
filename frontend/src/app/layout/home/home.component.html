@@ -1,0 +1,289 @@
+<script src="/path/to/cdn/jquery.slim.min.js"></script>
+<script src="/path/to/js/showmoreless.min.js"></script>
+
+<script>
+$(document).ready(function(e){
+    $('.search-panel .dropdown-menu').find('a').click(function(e) {
+		e.preventDefault();
+		var param = $(this).attr("href").replace("#","");
+		var concept = $(this).text();
+		$('.search-panel span#search_concept').text(concept);
+		$('.input-group #search_param').val(param);
+	});
+});
+
+(function($) { "use strict";
+
+$(function() {
+  var header = $(".start-style");
+  $(window).scroll(function() {    
+    var scroll = $(window).scrollTop();
+  
+    if (scroll >= 10) {
+      header.removeClass('start-style').addClass("scroll-on");
+    } else {
+      header.removeClass("scroll-on").addClass('start-style');
+    }
+  });
+});		
+  
+//Animation
+
+$(document).ready(function() {
+  $('body.hero-anime').removeClass('hero-anime');
+});
+
+//Menu On Hover
+  
+$('body').on('mouseenter mouseleave','.nav-item',function(e){
+    if ($(window).width() > 750) {
+      var _d=$(e.target).closest('.nav-item');_d.addClass('show');
+      setTimeout(function(){
+      _d[_d.is(':hover')?'addClass':'removeClass']('show');
+      },1);
+    }
+});	
+
+//Switch light/dark
+
+$("#switch").on('click', function () {
+  if ($("body").hasClass("dark")) {
+    $("body").removeClass("dark");
+    $("#switch").removeClass("switched");
+  }
+  else {
+    $("body").addClass("dark");
+    $("#switch").addClass("switched");
+  }
+});  
+
+})(jQuery); 
+</script>
+<head>
+  <style>
+      /* Initially, hide the extra text that
+          can be revealed with the button */
+      #moreText {
+
+          /* Display nothing for the element */
+          display: none;
+      }
+  </style>
+</head>
+<body class="hero-anime"> 
+
+  <div class="navigation-wrap bg-light start-header start-style">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-md navbar-light">
+          
+            <a class="navbar-brand" ><img src="assets/images/favicon.png" alt=""></a>  
+            <div class="h3">
+              Library Management System
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto py-4 py-md-0">
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 active">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+                 
+                </li>
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" *ngIf="!currentUser">
+                  <a class="nav-link" href="javascript:" (click)="open(login)">Sign In</a>
+                </li>
+                <li class="nav-item nav-profile pl-4 pl-md-0 ml-0 ml-md-4 mt-1" ngbDropdown *ngIf="currentUser">
+                  <div class="nav-profile-img" (click)="checkRole();">
+                    <img src="http://localhost:3000/uploadImage/{{currentUser.image}}" alt="image" style="width: 25px;height: 25px;">
+                    <span class="pl-2 mt-4" style="font-size: 12px; font-style: bold;">{{currentUser.name}}</span>
+                  </div>
+                </li>
+              </ul>
+              
+            </div>
+          
+          </nav>    
+        </div>
+      </div>
+    </div>
+  </div>
+  <header>
+    <div class="container">
+      <div class="intro-text">
+            <!-- <div class="intro-lead-in"> </div>
+            <div class="intro-heading"> </div> -->
+
+            
+      </div>
+        
+    </div>
+</header>
+
+<div class="page-header p-0 theme-bg-dark py-3 text-center position-relative">
+  <div class="theme-bg-shapes-right"></div>
+  <div class="theme-bg-shapes-left"></div>
+  <div class="container title py-4">
+    <h2 class="page-heading single-col-max mx-auto text-primary">Our Library Books</h2>
+    <div class="page-intro single-col-max mx-auto ">Stories, ideas, and knowledge that will change your life forever.</div>
+   
+  <div class="main-search-input-wrap">
+    <div class="main-search-input fl-wrap">
+        <div class="main-search-input-item">
+            <input [(ngModel)]="term" type="text"  value="" placeholder="Search Books...">
+        </div>                                    
+        <button class="main-search-button">Search</button>
+    </div>
+  </div>
+  </div>
+          
+</div>
+
+<div class="page-content">
+  <div class="container">
+    <div class="container" >
+      <div class="row">
+          <div class="col-md-12">
+              <div class="d-flex flex-row justify-content-between align-items-center filters">
+                  <h6>Showing {{arrBook.length}} books</h6>
+                  <div class="right-sort">
+                    <!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    	<span id="search_concept">Filter by</span> <span class="caret"></span>
+                    </button> -->
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#contains">Contains</a></li>
+                      <li><a href="#its_equal">It's equal</a></li>
+                      <li><a href="#greather_than">Greather than ></a></li>
+                      <li><a href="#less_than">Less than < </a></li>
+                      <li class="divider"></li>
+                      <li><a href="#all">Anything</a></li>
+                    </ul>                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-sm-3" *ngFor="let books of arrBook | filter: term">
+          <div class="p-card bg-white p-2 rounded px-3 mt-4 shadow " (click)="open(view, books._id)" >
+            <div class="d-flex align-items-center credits text-small pb-1" ><img src="https://i.imgur.com/hlz6G90.png" width="16px" ><span class="text-black-50 ml-2">{{books.quantity}} books available</span></div>
+            <img src="http://localhost:3000/uploadImage/{{books.image}}"style=" object-fit: cover; height: 250px;" class="card-img-top" alt="Books"/>                  
+            <h5 class="mt-2 font-weight-bold text-primary">{{books.title}}</h5><span class="badge badge-danger py-1 mb-2" style="background-color: #5E5CDB; border: #5E5CDB;">{{books.kind}}</span>
+            <span class="d-block mb-3 text-small">{{books.author}}</span> 
+          </div>
+        </div>
+     
+
+      </div>
+
+  <div class="d-flex justify-content-center text-right mt-4">
+      <nav>
+          <ul class="pagination shadow-sm">
+              <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item"><a class="page-link" href="#">5</a></li>
+              <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+          </ul>
+      </nav>
+  </div>
+  </div>
+</div><!--//container-->
+</div><!--//page-content-->
+
+<footer class="footer">
+
+  <div class="footer-bottom text-center py-3">
+    <small class="copyright">Copyright by<i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link text-primary"> @LMS</a> 2022</small>  
+  </div>
+  
+</footer>
+
+</body>
+
+<!-- ---Login--- -->
+<ng-template #login let-modal class="modal">
+  
+
+  <form method="post" action="" role="login">
+    <div class="" ngbAutofocus>
+      <button type="button" class="close pt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="brand-logo">
+      <img src="assets/images/logo.svg" alt="logo">
+    </div>
+    <h3><b>LMS</b> Sign In</h3>
+    <div class="form-group ">
+      <div class="form-group">
+        <input type="email" class="form-control form-control-lg" id="email" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control form-control-lg" id="password" placeholder="Password">
+      </div>
+      <span class="error" *ngIf="errorShow">Email or password is wrong!</span>
+    </div>
+  
+    <button type="submit" name="go" class="btn btn-lg btn-block bg-[#524fdc]" (click)="post()">SIGN IN</button>
+   
+  </form>
+</ng-template>
+
+
+<!-- Modal View Book -->
+<ng-template #view let-modal>
+  
+  <div class="modal-dialog" style="margin: 0px; max-width: 700px;">
+
+    <!--Modal Content-->
+    <div class="modal-content py-md-0">
+
+      <!-- Modal Header-->
+      <div class="modal-header py-3">
+        <h4 class="text-primary font-weight-bold">{{book.title}}</h4>
+      </div>
+
+      <!-- Modal Body-->
+      <div class="modal-body">
+        <div class="row">
+
+          <!--Gift Icon-->
+          <div class="col text-center">
+            <img src="http://localhost:3000/uploadImage/{{book.image}}"style=" object-fit: cover;" class="card-img-top" alt="Books"/>                  
+          </div>
+
+          <!--Modal Text-->
+          <div class="col-8">
+            
+            <div class="module">
+              <div >
+                <span class="badge badge-danger py-1 mb-2" style="background-color: #5E5CDB; border: #5E5CDB;">{{book.kind}}</span>
+                <div class="d-flex align-items-center credits pb-1" style="font-size: 10px;" ><img src="https://i.imgur.com/hlz6G90.png" width="16px"><span class="text-black-50 ml-2">{{book.quantity}} books available</span></div>
+                <h5 class="font-weight-bold pt-2">Author: {{book.author}}</h5>
+                <ngx-text-expander style="font-size: 12px;"
+                    text= "{{book.description}}  No Description"
+                    [max-char-count]="300"
+                    less-text="show less"
+                    more-text="show more"
+                    [show-ellipse]="true">
+                </ngx-text-expander>
+                <p *ngIf="book.description == ''">
+                  No description
+                </p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modal Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn" (click)="modal.close('Save click')">Close</button>
+      </div>
+
+    </div>
+
+  </div>
+</ng-template>

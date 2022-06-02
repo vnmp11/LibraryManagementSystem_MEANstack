@@ -784,3 +784,7 @@ footer{
   padding-left: 300px;
   @include flex-grow(1);
 }
+
+body {
+  background-color: darkgray;
+}

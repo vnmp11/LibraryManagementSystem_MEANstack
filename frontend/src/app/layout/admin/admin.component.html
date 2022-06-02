@@ -1,32 +1,23 @@
 <div class="container-scroller">
-    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <nav class="navbar shadow-sm default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" routerLink="/"><img src="assets/images/logo.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo" routerLink="/home" [state]="user"><img src="assets/images/logo.svg" alt="logo" /></a>
           <a class="navbar-brand brand-logo-mini" routerLink="/"><img src="assets/images/logo.svg" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize" (click)="toggleSidebar()">
             <span class="mdi mdi-menu"></span>
           </button>
-          <div class="search-field d-none d-md-block">
-            <form class="d-flex align-items-center h-100" action="#">
-              <div class="input-group">
-                <div class="input-group-prepend bg-transparent">
-                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                </div>
-                <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
-              </div>
-            </form>
-          </div>
+         
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown" ngbDropdown>
               <a class="nav-link dropdown-toggle" id="profileDropdown" ngbDropdownToggle>
                 <div class="nav-profile-img">
-                  <img src="assets/images/faces/face.jpg" alt="image">
+                  <img src="http://localhost:3000/uploadImage/{{user.image}}" alt="image">
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black">My Phuong</p>
+                  <p class="mb-1 text-black">{{user.name}}</p>
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown" ngbDropdownMenu aria-labelledby="profileDropdown">
@@ -36,7 +27,7 @@
                   Signout
                 </a>
               </div>
-        
+            </li>
            
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" (click)="toggleOffcanvas()">
@@ -44,20 +35,19 @@
           </button>
         </div>
       </nav>
-  <div class="container-fluid page-body-wrapper">
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <div class="container-fluid page-body-wrapper ">
+    <nav class="sidebar shadow-sm sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item nav-profile">
             <a href="javascript:;" class="nav-link">
               <div class="nav-profile-image">
-                <img src="assets/images/faces/face.jpg" alt="profile">
+                <img src="http://localhost:3000/uploadImage/{{user.image}}" alt="profile">
                 <span class="login-status online"></span> <!--change to offline or busy as needed-->              
               </div>
               <div class="nav-profile-text">
-                <span class="font-weight-bold mb-2"> My Phuong</span>
-                <span class="text-secondary text-small">Librarian</span>
+                <span class="font-weight-bold mb-2">{{user.name}}</span>
+                <span class="text-primary text-small">{{user.role}}</span>
               </div>
-              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
           </li>
           <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
@@ -74,8 +64,8 @@
             </a>
             <div class="collapse" id="profile-ui" [ngbCollapse]="!profileCollapsed">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" routerLink="profile/update_detail" routerLinkActive="active" #detail="routerLinkActive">Update Detail</a></li>
-                <li class="nav-item"> <a class="nav-link" routerLink="profile/change_password" routerLinkActive="active" #change_password="routerLinkActive">Change Password</a></li>
+                <li class="nav-item"> <a class="nav-link" routerLink="profile/update_detail" [state]="currentUser" routerLinkActive="active" #detail="routerLinkActive">Update Detail</a></li>
+                <li class="nav-item"> <a class="nav-link" routerLink="profile/change_password" [state]="currentUser"  routerLinkActive="active" #change_password="routerLinkActive">Change Password</a></li>
               </ul>
             </div>
           </li>
@@ -108,7 +98,27 @@
               </ul>
             </div>
           </li>
-      
+
+          <li class="nav-item" [ngClass]="{'active' : add_borrow.isActive || view_borrow.isActive  }">
+            <a class="nav-link"  (click)="borrowCollapsed = !borrowCollapsed; checkOpenBorrowing()" [attr.aria-expanded]="borrowCollapsed" aria-controls="borrow-ui">
+              <span id="users" class="menu-title">Manage Borrowing</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-book-open-variant"></i>
+            </a>
+            <div class="collapse" id="borrow-ui" [ngbCollapse]="!borrowCollapsed">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" routerLink="borrowing/add_borrow" routerLinkActive="active" #add_borrow="routerLinkActive">Add Borrowing</a></li>
+                <li class="nav-item"> <a class="nav-link" routerLink="borrowing/view_borrow" routerLinkActive="active" #view_borrow="routerLinkActive">View Borrowing</a></li>
+               
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item" [ngClass]="{ 'active': returning.isActive }">
+            <a class="nav-link" routerLink="returning" routerLinkActive #returning="routerLinkActive">
+              <span class="menu-title">Manage Returning</span>
+              <i class="mdi mdi-keyboard-return menu-icon"></i>
+            </a>
+          </li>
           <li class="nav-item" [ngClass]="{'active' : category.isActive }">
             <a class="nav-link"  (click)="itemsCollapsed = !itemsCollapsed; checkOpenItems()" [attr.aria-expanded]="itemsCollapsed" aria-controls="items-ui">
               <span class="menu-title">Manage Items</span>
@@ -122,12 +132,13 @@
               </ul>
             </div>
           </li>
+
       
         </ul>
       </nav>
       
-    <div class="main-panel" [ngClass]="{ 'main-panel-only' : !showSidebar }">
-      <div class="content-wrapper">
+    <div class="main-panel " [ngClass]="{ 'main-panel-only' : !showSidebar }">
+      <div class="content-wrapper" style="background-color: rgba(239, 239, 239, 0.77);">
         <app-spinner *ngIf="isLoading"></app-spinner>
         <div contentAnimate *ngIf="!isLoading" class="h-100">
           <router-outlet></router-outlet>

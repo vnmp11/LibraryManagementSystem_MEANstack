@@ -43,7 +43,7 @@ $(document).ready(function(){
                     <div class="col-sm-4">
                         <div class="search-box">
                             <i class="material-icons">&#xE8B6;</i>
-                            <input type="text" class="form-control" placeholder="Search&hellip;">
+                            <input type="text" class="form-control" [(ngModel)]="term" placeholder="Search&hellip;" autocomplete="false">
                         </div>
                     </div>
                 </div>
@@ -63,9 +63,9 @@ $(document).ready(function(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let books of arrBook; let i = index" >
+                    <tr *ngFor="let books of arrBook | filter: term" >
                         <td> 
-                           {{i+1}}
+                          {{books._id}}
                         </td>
                         <td>
                             <img src="http://localhost:3000/uploadImage/{{books.image}}" style="height: 140px; width: 100px; border-radius: 0; " ></td>

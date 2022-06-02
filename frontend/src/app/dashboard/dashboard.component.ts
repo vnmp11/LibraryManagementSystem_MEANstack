@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { BookService } from '../service/book.service';
+import { BorrowService } from '../service/borrow.service';
+import { CategoryService } from '../service/category.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,15 +11,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  arrBorrow:any = []
+  arrUser:any = []
+  arrCate:any = [];
+  arrBook:any = [];
+
+
   toggleProBanner(event) {
     console.log("123");
     event.preventDefault();
     document.querySelector('body').classList.toggle('removeProbanner');
   }
 
-  constructor() { }
+  constructor(private cateService: CategoryService, private bookService: BookService, private borrowService: BorrowService,  private userService: UserService) { 
+    borrowService.getBorrow().subscribe(data=>{
+      console.log(data);
+      this.arrBorrow = data;
+    });
+
+    bookService.getBook().subscribe(data=>{
+      console.log(data);
+      this.arrBook = data;
+    });
+
+    userService.getUser().subscribe(data=>{
+      console.log(data);
+      this.arrUser = data;
+    });
+
+    cateService.getCategory().subscribe(data=>{
+      console.log(data);
+      this.arrCate = data;
+    });
+
+    
+  }
 
   ngOnInit() {
+   
   }
 
   date: Date = new Date();
@@ -26,6 +59,7 @@ export class DashboardComponent implements OnInit {
     borderWidth: 1,
     fill: false,
   },
+  
   {
     label: 'USA',
     data: [40, 30, 20, 10, 50, 15, 35, 40],

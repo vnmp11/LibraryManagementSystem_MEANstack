@@ -1,0 +1,182 @@
+<head style="display: none;">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap Simple Data Table</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+
+    <script>
+        $("td").each(function(idx) {
+  if ($(this).is('.index')) {
+    console.log(idx + 1)
+  }
+});
+    </script>
+    
+    </head>
+    
+    <div class="page-header">
+        <h3 class="page-title">
+          MANAGE BORROWING BOOK
+        </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:;">Manage Borrowing</a></li>
+            <li class="breadcrumb-item active" aria-current="page">View Borrowing</li>
+          </ol>
+        </nav>
+    </div>
+    <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8 page-title"><h2><b>All Books Borrowing</b></h2></div>
+                        <div class="col-sm-4">
+                            <div class="search-box">
+                                <i class="material-icons">&#xE8B6;</i>
+                                <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search&hellip;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead >
+                        <tr >
+                            <th style="background-color: #5E5CDB; color: #fff;" >No.</th>
+                            <!-- <th style="background-color: #5E5CDB; color: #fff;" >Book ID </th> -->
+                            <th style="background-color: #5E5CDB; color: #fff;" >Book Title</th>
+                            <th style="background-color: #5E5CDB; color: #fff;" >Person Name</th>
+                            <th style="background-color: #5E5CDB; color: #fff;" >Date Borrow</th>
+                            <th style="background-color: #5E5CDB; color: #fff;" >Date Due</th>
+                            <th style="background-color: #5E5CDB; color: #fff;" >Status</th>
+                            <!-- <th>Quantity <i class="fa fa-sort"></i></th> -->
+                            <th style="background-color: #5E5CDB; color: #fff;" >Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let borrow of arrBorrow; let i=index">
+
+                            <td> 
+                                {{i+1}}
+                            </td>
+                            
+                            <td> 
+                                {{borrow.title}}
+                            </td>
+                             
+                             <td> 
+                                {{borrow.name}}
+                             </td>
+                             <td> 
+                                {{borrow.dateBorrow | date :'dd/MM/yyyy'}}
+                             </td>
+                             <td> 
+                                {{borrow.dateDue | date :'dd/MM/yyyy'}}
+                             </td>
+                             <td> 
+                                {{borrow.status}}
+                             </td>
+                           
+                            <td>
+                                <a href="javascript:" (click)="open(return, borrow._id)"  title="View" data-toggle="tooltip"><i class="material-icons ">&#xe860;</i></a>
+                                <a href="javascript:" (click)="openSendEmail(sendEmail, borrow._id, borrow.idUser)" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">mail</i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                        <li class="page-item"><a href="#" class="page-link">3</a></li>
+                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                        <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+     
+    </div>
+    
+    <ng-template #sendEmail let-modal>
+        <div class="modal-header" ngbAutofocus>
+          <h4 class="modal-title" id="modal-basic-title">Send Email</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="col-12 grid-margin padding-form ">
+          <div class="card-body ">
+              <form class="form-sample padding-form">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Email</label>
+                    <div class="col-sm-7">
+                      <input [disabled]="true" id="email" type="text" class="form-control" style="font-size: 14px;"/>
+                    </div>
+                  </div>
+                <div class="form-group">
+                    <label for="exampleTextarea1">Reminder</label>
+                    <textarea placeholder="Note if any" class="form-control"  id="note" rows="4" name="description" style="font-size: 14px;">Book Borrowed to you needs to be return to the library.</textarea>
+                  </div>
+            </form>
+      
+            
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Cancel</button>
+          <button type="button" (click)="post(); modal.close('Save click'); " class="btn btn-light" >Return Book</button>
+      
+        </div>
+      </ng-template>
+      
+      <ng-template #return let-modal>
+        <div class="modal-header" ngbAutofocus>
+          <h4 class="modal-title" id="modal-basic-title">Return Book</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="col-12 grid-margin padding-form ">
+          <div class="card-body ">
+              <form class="form-sample padding-form">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label required">Returned Date</label>
+                    <div class="col-sm-7">
+                      <input [disabled]="true" placeholder="Select Returned Date" id="maxdate" type="date" class="form-control" name="dob" max={{this.maxdate}} value={{this.max}}/>
+                    </div>
+                  </div>
+                <div class="form-group">
+                    <label for="exampleTextarea1">Note Returning Book</label>
+                    <textarea placeholder="Note if any" class="form-control"  id="note" rows="4" name="description"></textarea>
+                  </div>
+            </form>
+      
+            
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Cancel</button>
+          <button type="button" (click)="post(); modal.close('Save click'); " class="btn btn-light" >Return Book</button>
+      
+        </div>
+      </ng-template>
+      

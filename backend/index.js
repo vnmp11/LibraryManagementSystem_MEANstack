@@ -403,3 +403,248 @@ app.post("/api/deleteBook",jsonParser,function(req,res){
         }
       });
 });
+
+
+//login
+
+
+// JWT
+var jwt = require('jsonwebtoken');
+const Borrow = require("./Models/Borrow");
+const Return = require("./Models/Return");
+var secret = "TroiMuaRoi";
+
+
+//login
+app.get("/login", function(req, res){
+    res.render("login");
+});
+app.post("/api/login", function(req, res){
+    if( req.body.email != null && req.body.password != null ){ 
+        // Tim User theo Username
+        User.findOne({email: req.body.email}, function(err, u){
+            if(err || u==null){
+                res.sendStatus(404);
+                console.log("sai tai khoan" );
+            }else{
+                
+                // so sanh password
+                bcrypt.compare(req.body.password, u.password, function(err, res2) {
+                    if(req.body.password !=  u.password){
+                        //res.json({kq:0});
+                        res.sendStatus(400);
+                        console.log("sai mat khau" );
+                    }else{
+                        // Tao Token
+                        u.password="";
+                        jwt.sign(u.toJSON() , secret, { }, function(err, token) {
+                            if(err){
+                                console.log("Token loi " + err);
+                                //res.json({kq:0});
+                            }else{
+                                res.json(u);
+                                //res.sendStatus(200);
+                                
+                                console.log("dang nhap thanh cong" );
+                                console.log(u);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+});
+
+//Borrow
+
+//Get all borrow
+app.post("/api/borrow", function(req,res){
+    Borrow.find(function(err,items){
+        if(err){
+            res.json({kq:0,"err":err});
+        }else{
+            res.json(items);
+        }
+    });
+ });
+
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+app.post("/api/addBorrow", function(req,res){
+    if( req.body.idBook != null && req.body.idUser != null ){
+        Book.findOne({_id: req.body.idBook}, function(err, b){
+            if(err || b == null){
+                res.sendStatus(404);
+                console.log("Not found the book" );
+            }else{
+                User.findOne({_id: req.body.idUser}, function(err, u){
+                    if(err || u == null){
+                        res.sendStatus(400);
+                        console.log("Not found the user." );
+                    }else{
+                        var d = new Date();
+                        const newBorrow = new Borrow({
+                            idBook: req.body.idBook,  
+                            title : b.title,  
+                            idUser: req.body.idUser,
+                            name: u.name,
+                            status: "Borrowing",
+                            dateBorrow: Date.now().toString(),
+                            dateDue: addDays(Date.now(), 30)
+                         });
+                         newBorrow.save(function(err, result){
+                             if(err){
+                                 console.log("Add borrowing fail"+err);
+                                 res.sendStatus(500);
+                                 res.json({kq:0});
+                             }else{
+                                res.sendStatus(200);
+                                 console.log("Add borrowing ok");
+                             }
+                         }); 
+                    }
+                });
+
+                Book.findByIdAndUpdate(req.body.idBook, {
+                    quantity: b.quantity - 1,                         
+                  }, (error) => {
+                    if (error) {
+                      console.log(error)
+                    } else {
+                      console.log('Quantity updated successfully!')
+                    }
+                  });
+            }
+        });
+    }else{
+        console.log("vui long nhap day du thong tin");
+        res.json({kq:0});
+    }      
+   
+    
+
+});
+
+//RETURN
+app.post("/api/return", function(req,res){
+    Return.find(function(err,items){
+        if(err){
+            res.json({kq:0,"err":err});
+        }else{
+            res.json(items);
+        }
+    });
+ });
+
+function countDate(dateDue, dateRe){
+    var fine = 0;
+    var diffDays = parseInt((dateDue - dateRe) / (1000 * 60 * 60 * 24), 10); 
+    if(diffDays > 0){
+        fine = 0;
+    }else{
+        fine = diffDays*-10000;
+    }
+    console.log(fine.toString());
+    return fine;
+}
+
+app.post("/api/addReturn", function(req,res){
+    if( req.body.idBorrow != null){
+        Borrow.findOne({_id: req.body.idBorrow}, function(err, b){
+            if(err || b==null){
+                res.sendStatus(404);
+                console.log("khong tim thay phieu" );
+
+            }else{
+                            const newReturn = new Return({
+                            idBorrow: req.body.idBorrow,
+                            idBook: b.idBook,  
+                            title : b.title,  
+                            idUser: b.idUser,
+                            name: b.name,                     
+                            dateBorrow: b.dateBorrow,
+                            dateDue: b.dateDue,
+                            dateReturn: Date.now(),
+                            fine: countDate(b.dateDue,Date.now()),                  
+                            note:req.body.note
+                         });
+                         newReturn.save(function(err, result){
+                             if(err){
+                                 console.log("Return fail"+err);
+                                 res.sendStatus(500);
+                                 res.json({kq:0});
+                             }else{
+                                 console.log("Return ok");
+                                 res.sendStatus(200);
+                             }
+                         }); 
+
+                         Borrow.findByIdAndUpdate(req.body.idBorrow, {
+                            status: "Returned",                         
+                          }, (error) => {
+                            if (error) {
+                              console.log(error)
+                            } else {
+                              console.log('Borrow updated successfully!')
+                            }
+                          })
+                    }        
+        });
+    }else{
+        console.log("vui long nhap day du thong tin");
+        res.json({kq:0});
+    }      
+    
+});
+
+// doi mat khau
+app.put("/api/updatePassword",function(req,res){
+    User.findByIdAndUpdate(req.body._id, {
+       password : req.body.password
+      }, (error) => {
+        if (error) {
+          console.log(error)
+        } else {
+          res.sendStatus(200);
+          console.log(req.body.password)
+          console.log('Password updated successfully!') 
+        }
+      })
+});
+
+//Get all borrow follow ID
+app.post("/api/borrowID", function(req,res){
+    Borrow.find({idUser: req.body.idUser},function(err,items){
+        if(err){
+            res.json({kq:0,"err":err});
+        }else{
+            res.json(items);
+        }
+    });
+ });
+
+//Get all return follow ID
+app.post("/api/returnID", function(req,res){
+    Return.find({idUser: req.body.idUser},function(err,items){
+        if(err){
+            res.json({kq:0,"err":err});
+        }else{
+            console.log("idreturn:" + req.body.idUser)
+            res.json(items);
+        }
+    });
+ });
+
+//  app.post("/api/returnID", function(req,res){
+//     console.log("id return: "+req.params.idUser);
+//     Return.findById(req.params.idUser, (err, items) => {
+//         if (!err) { 
+//             console.log(items);
+//             res.json(items); }
+//         else { console.log('Error in Retriving User :' + JSON.stringify(err, undefined, 2)); }
+//     });
+//  });

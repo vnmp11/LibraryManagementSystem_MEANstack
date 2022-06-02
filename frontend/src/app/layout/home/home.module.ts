@@ -10,6 +10,8 @@ import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home.component';
+import { NgxTextExpanderModule } from 'ngx-text-expander';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -29,6 +31,9 @@ import { HomeComponent } from './home.component';
     ChartsModule,
     RouterModule,
     HttpClientModule,
+    NgxTextExpanderModule,
+    Ng2SearchPipeModule
+
   ],
 
 })

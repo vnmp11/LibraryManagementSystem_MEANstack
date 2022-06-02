@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddUserComponent } from './adduser/adduser.component';
 import { ViewUsersComponent } from './viewusers/viewusers.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 const routes: Routes = [
   { path: 'add_user', component: AddUserComponent },
@@ -23,7 +24,7 @@ imports: [
   FormsModule,
   RouterModule.forChild(routes),
   ReactiveFormsModule,
-
+  Ng2SearchPipeModule
 ]
 
 })

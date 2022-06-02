@@ -1,0 +1,148 @@
+<div class="page-header">
+    <h3 class="page-title">
+      MANAGE BORROWING
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:;">Manage Borrowing</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Borrowing</li>
+      </ol>
+    </nav>
+</div>
+<div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Add A New Borrowing</h4>
+        <form class="form-sample">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label for="title" class="col-sm-3 col-form-label required">Book ID</label>
+                <div class="col-sm-9 "  autocomplete="off">
+                  <input maxlength="31" id="idBook" class="form-control" type="text" name="title" [(ngModel)]="term" autocomplete="false" (keyup)="findBooks()">
+                 
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group row">
+                  <label for="title" class="col-sm-3 col-form-label">Book Title</label>
+                  <div class="col-sm-9">
+                    <input [disabled]="true" maxlength="31" id="title" class="form-control" type="text" name="title" id="titleBook">
+                  </div>
+                </div>
+              </div>
+
+          </div>
+
+          <div class="row">
+              <table class="table table-bordered"
+                      style="margin-left: 20px;margin-right: 20px; margin-bottom: 30px;" *ngIf="book">
+                <tbody>
+                  <tr>
+                    <td rowspan="2">
+                      <img src="http://localhost:3000/uploadImage/{{book.image}} " style="border-radius: 0; height: 85px; width: 60px;"/>
+                    </td>
+                    <td style="background: beige;">Title</td>
+                    <td>{{book.title}}</td>
+                    <td style="background: beige;">Category</td>
+                    <td>{{book.kind}}</td>
+                    <td style="background: beige; ">Borrowed</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td style="background: beige;">Author</td>
+                    <td>{{book.author}}</td>
+                    <td style="background: beige;">Quantity</td>
+                    <td>{{book.quantity}}</td>
+                    <td style="background: beige;">Price</td>
+                    <td>{{book.price}}</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label required">Student ID</label>
+                <div class="col-sm-9">
+                  <input id="idUser" class="form-control"  name="price" (keyup)="findUsers()">
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                  <input [disabled]="true" id="nameUser" type="text" class="form-control" type="text" name="publisher"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="row">
+            <table class="table table-bordered"
+                    style="margin-left: 20px;margin-right: 20px; margin-bottom: 30px;" *ngIf="user">
+              <tbody>
+                <tr>
+                  <td rowspan="2">
+                    <img src="http://localhost:3000/uploadImage/{{user.image}} " style="border-radius: 0; height: 40px; width: 40px;"/>
+                  </td>
+                  <td style="background: beige;">Name</td>
+                  <td>{{user.name}}</td>
+                  <td style="background: beige; ">Sex</td>
+                  <td>{{user.sex}}</td>
+                  <td style="background: beige;">Phone</td>
+                  <td>{{user.phone}}</td>                 
+                </tr>
+                <tr>
+                  <td style="background: beige;">Email</td>
+                  <td colspan="3">{{user.email}}</td>
+                  <td style="background: beige;">DOB</td>
+                  <td>{{user.dob | date: 'dd/MM/yyyy' }}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-5 col-form-label required">Date Borrowed Book</label>
+                <div class="col-sm-7">
+                  <input id="maxdate" type="date" class="form-control" name="dob" max={{this.maxdate}} value={{this.max}} (change)="updateDate()"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">By when to Return</label>
+                <div class="col-sm-8">
+                  <input id="returnDate" [disabled]="true" id="dob" type="date" class="form-control" name="dob" value={{this.return}}/>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+      
+
+          <div class="float-right">
+            <button id="Add" type="button" (click)="post(); resetForm();" class="btn btn-primary btn-fw">
+              <i class="mdi mdi-upload btn-icon-prepend"></i>
+              Borrow Book
+            </button>
+          </div>
+
+         
+       
+        </form>
+      </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-admin',
@@ -24,13 +25,17 @@ export class AdminComponent implements OnInit {
     public usersCollapsed = false;
     public profileCollapsed = false;
     public itemsCollapsed = false;
+    public borrowCollapsed = false;
+
 
     public iconOnlyToggled = false;
     public sidebarToggled = false;
+
+    currentUser:any;
+    user:any;
   
-  
-    constructor(private router: Router, config: NgbDropdownConfig) {
-      
+    constructor(private router: Router, config: NgbDropdownConfig, private userService: UserService,) {
+
       // Removing Sidebar, Navbar, Footer for Documentation, Error and Auth pages
       router.events.forEach((event) => { 
         if(event instanceof NavigationStart) {
@@ -82,9 +87,17 @@ export class AdminComponent implements OnInit {
         });
       });
   
+      this.currentUser = this.router.getCurrentNavigation().extras.state; // GET DATA
+      this.userService.getAUser(this.currentUser._id).subscribe(data=>{
+        console.log(data);
+        this.user = data;
+      });  
+
+
     }
 
   ngOnInit() {
+
       // Scroll to top after route change
     this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
@@ -92,9 +105,13 @@ export class AdminComponent implements OnInit {
         }
         window.scrollTo(0, 0);
       });
+
+      this.userService.getAUser(this.currentUser._id).subscribe(data=>{
+        console.log(data);
+        this.user = data;
+      });  
   }
 
-  
   // toggle sidebar in small devices
   toggleOffcanvas() {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
@@ -133,6 +150,10 @@ export class AdminComponent implements OnInit {
     {
       this.itemsCollapsed = false
     }
+    if (this.borrowCollapsed == true)
+    {
+      this.borrowCollapsed = false
+    }
   }
 
   checkOpenUser(){
@@ -147,6 +168,10 @@ export class AdminComponent implements OnInit {
     if (this.itemsCollapsed == true)
     {
       this.itemsCollapsed = false
+    }
+    if (this.borrowCollapsed == true)
+    {
+      this.borrowCollapsed = false
     }
   }
 
@@ -163,6 +188,10 @@ export class AdminComponent implements OnInit {
     {
       this.itemsCollapsed = false
     }
+    if (this.borrowCollapsed == true)
+    {
+      this.borrowCollapsed = false
+    }
   }
 
   checkOpenItems(){
@@ -177,6 +206,29 @@ export class AdminComponent implements OnInit {
     if (this.profileCollapsed == true)
     {
       this.profileCollapsed = false
+    }
+    if (this.borrowCollapsed == true)
+    {
+      this.borrowCollapsed = false
+    }
+  }
+
+  checkOpenBorrowing(){
+    if (this.booksCollapsed == true)
+    {
+      this.booksCollapsed = false;
+    }
+    if (this.usersCollapsed == true)
+    {
+      this.usersCollapsed = false;
+    }
+    if (this.profileCollapsed == true)
+    {
+      this.profileCollapsed = false
+    }
+    if (this.itemsCollapsed == true)
+    {
+      this.itemsCollapsed = false
     }
   }
   

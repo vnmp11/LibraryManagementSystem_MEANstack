@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-user',
@@ -27,10 +28,20 @@ export class UserComponent implements OnInit {
 
     public iconOnlyToggled = false;
     public sidebarToggled = false;
+
+    currentUser:any;
+    user:any;
   
-  
-    constructor(private router: Router, config: NgbDropdownConfig) {
+    constructor(private router: Router, config: NgbDropdownConfig, private userService: UserService,) {
+
+      this.currentUser = this.router.getCurrentNavigation().extras.state; // GET DATA
+       
+      this.userService.getAUser(this.currentUser._id).subscribe(data=>{
+        console.log(data);
+        this.user = data;
+      });  
       
+
       // Removing Sidebar, Navbar, Footer for Documentation, Error and Auth pages
       router.events.forEach((event) => { 
         if(event instanceof NavigationStart) {
@@ -92,6 +103,16 @@ export class UserComponent implements OnInit {
         }
         window.scrollTo(0, 0);
       });
+      
+      this.userService.getAUser(this.currentUser._id).subscribe(data=>{
+        console.log(data);
+        this.user = data;
+      });  
+
+  }
+
+  logout(){
+    this.router.navigate(['/','home']);
   }
 
   

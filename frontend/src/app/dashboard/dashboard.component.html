@@ -15,7 +15,7 @@
         <h4 class="font-weight-normal mb-3">Total Books
           <i class="mdi mdi-chart-line mdi-24px float-right"></i>
         </h4>
-        <h2 class="mb-5">$ 15,0000</h2>
+        <h2 class="mb-2">{{arrBook.length}}</h2>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
         <h4 class="font-weight-normal mb-3">Total Users
           <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
         </h4>
-        <h2 class="mb-5">45,6334</h2>
+        <h2 class="mb-2">{{arrUser.length}}</h2>
       </div>
     </div>
   </div>
@@ -37,18 +37,18 @@
         <h4 class="font-weight-normal mb-3">Borrowed
           <i class="mdi mdi-diamond mdi-24px float-right"></i>
         </h4>
-        <h2 class="mb-5">95,5741</h2>
+        <h2 class="mb-2">{{arrBorrow.length}}</h2>
       </div>
     </div>
   </div>
   <div class="col-md-3 stretch-card grid-margin">
     <div class="card bg-gradient-warning card-img-holder text-white">
-      <div class="card-body">
+      <div class="card-body" style="max-height: 50px;">
         <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
         <h4 class="font-weight-normal mb-3">Fine
           <i class="mdi mdi-diamond mdi-24px float-right"></i>
         </h4>
-        <h2 class="mb-5">95,5741</h2>
+        <h2 class="mb-2">95,5741</h2>
       </div>
     </div>
   </div>
@@ -83,19 +83,12 @@
         <h4 class="card-title">Book category</h4>
         <canvas baseChart [chartType]="'doughnut'" [datasets]="trafficChartData" [labels]="trafficChartLabels" [options]="trafficChartOptions" [colors]="trafficChartColors"></canvas>
         <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4">
-          <ul>
+          <ul *ngFor="let cate of arrCate">
             <li>
-              <span class="legend-dots"></span>SQL
+              <span class="legend-dots"></span>{{cate.name}}
               <span class="float-right">30%</span>
             </li>
-            <li>
-              <span class="legend-dots"></span>Direct Click
-              <span class="float-right">30%</span>
-            </li>
-            <li>
-              <span class="legend-dots"></span>Bookmarks Click
-              <span class="float-right">40%</span>
-            </li>
+           
           </ul>
         </div>
       </div>

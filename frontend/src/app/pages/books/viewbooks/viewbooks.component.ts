@@ -16,6 +16,7 @@ export class ViewBooksComponent implements OnInit {
   book:any;
   book_image: any;
   selected_image = false;
+  term = '';
 
   closeResult = '';
   editBookForm: FormGroup;
@@ -27,6 +28,7 @@ export class ViewBooksComponent implements OnInit {
       console.log(data);
       this.arrBook = data;
     });
+
   }
 
   refesh(){
@@ -175,3 +177,5 @@ export class ViewBooksComponent implements OnInit {
      
   }
 }
+
+import { Pipe, PipeTransform } from '@angular/core';

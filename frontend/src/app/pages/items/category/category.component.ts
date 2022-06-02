@@ -67,7 +67,6 @@ export class CategoryComponent implements OnInit {
     this.isFormSubmitted = true;
 
     if (this.addCateForm.invalid) {
-      alert("error");
       return;
     }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BookService } from 'src/app/service/book.service';
+import { CategoryService } from 'src/app/service/category.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,11 +11,11 @@ import Swal from 'sweetalert2';
 })
 export class AddBookComponent implements OnInit {
 
-  constructor( private bookService: BookService,  private formBuilder: FormBuilder){
-    // bookService.getBook().subscribe(data=>{
-    //   console.log(data);
-    //   this.arrBook = data;
-    // });
+  constructor(private cateService: CategoryService, private bookService: BookService,  private formBuilder: FormBuilder){
+    cateService.getCategory().subscribe(data=>{
+      console.log(data);
+      this.arrCate = data;
+    });
    }
   
   ngOnInit() {
@@ -35,6 +36,7 @@ export class AddBookComponent implements OnInit {
 
   form!: FormGroup;
   addBookForm: FormGroup;
+  arrCate:any = [];
 
     public newBook = {title:'', author:'', description:'', price:'', _id:"", image:"", status:"", idBorrower:'', kind :'',dateCreate:'',edition:'' ,publisher:'' ,quantity:'' ,copyright:'' };
     image: any;
@@ -43,12 +45,10 @@ export class AddBookComponent implements OnInit {
     arrBook:any = []
     isFormSubmitted = false;
 
-    
 
     checkSelected(){
       var e = document.getElementById("kind") as HTMLSelectElement;
-     this.newBook.kind = e.options[e.selectedIndex].value;
-     //alert(this.newBook.kind);
+      this.newBook.kind = e.options[e.selectedIndex].text;
     }
 
     post() {
@@ -63,7 +63,7 @@ export class AddBookComponent implements OnInit {
       formData.append('description', this.newBook.description);
       formData.append('price', this.newBook.price);
       formData.append('file', this.image);
-      formData.append('kind', this.newBook.kind);
+      formData.append('kind',  this.newBook.kind);
       formData.append('quantity', this.newBook.quantity);
       formData.append('copyright', this.newBook.copyright);
       formData.append('publisher', this.newBook.publisher);
@@ -76,6 +76,7 @@ export class AddBookComponent implements OnInit {
         return;
       }
 
+      // alert("cate:" + this.newBook.kind);
       this.bookService.addBook(formData);
       Swal.fire('Success!', 'Added Book Successfully!', 'success')
 

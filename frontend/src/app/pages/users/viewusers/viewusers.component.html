@@ -34,15 +34,13 @@ $(document).ready(function(){
 <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        
-          
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8 page-title"><h2><b>All Users</b></h2></div>
                     <div class="col-sm-4">
                         <div class="search-box">
                             <i class="material-icons">&#xE8B6;</i>
-                            <input type="text" class="form-control" placeholder="Search&hellip;">
+                            <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search&hellip;">
                         </div>
                     </div>
                 </div>
@@ -53,7 +51,7 @@ $(document).ready(function(){
                         <th style="background-color: #5E5CDB; color: #fff;" >No.</th>
                         <th style="background-color: #5E5CDB; color: #fff;" >Image</th>
                         <th style="background-color: #5E5CDB; color: #fff;" >Name</th>
-                        <th style="background-color: #5E5CDB; color: #fff;" >Email </th>
+                        <!-- <th style="background-color: #5E5CDB; color: #fff;" >Email </th> -->
                         <th style="background-color: #5E5CDB; color: #fff;" >Phone No. </th>
                         <th style="background-color: #5E5CDB; color: #fff;" >Sex</th>
                         <th style="background-color: #5E5CDB; color: #fff;" >Role</th>
@@ -62,19 +60,19 @@ $(document).ready(function(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let users of arrUser; let i = index" >
+                    <tr *ngFor="let users of arrUser | filter: search" >
                         <td> 
-                           {{i+1}}
+                           {{users._id}}
                         </td>
                         <td>
-                            <img src="http://localhost:3000/uploadImage/{{users.image}}" style="height: 50px; width: 50px; border-radius: 0; " ></td>
+                            <img src="http://localhost:3000/uploadImage/{{users.image}}" style="height: 40px; width: 40px; border-radius: 0; " ></td>
                         <td> 
                             {{users.name}}
                          </td>
                         
-                         <td> 
+                         <!-- <td> 
                             {{users.email}}
-                         </td>
+                         </td> -->
                          <td> 
                             {{users.phone}}
                          </td>

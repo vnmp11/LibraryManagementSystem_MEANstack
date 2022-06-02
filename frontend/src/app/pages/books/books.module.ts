@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddBookComponent } from './addbook/addbook.component';
 import { ViewBooksComponent } from './viewbooks/viewbooks.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 const routes: Routes = [
     { path: 'add_book', component: AddBookComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule 
+    ReactiveFormsModule ,
+    Ng2SearchPipeModule
   ]
 })
 export class BooksModule { }

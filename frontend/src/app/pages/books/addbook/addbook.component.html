@@ -38,11 +38,10 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label required">Category</label>
                 <div class="col-sm-9">
-                  <select class="form-control" formControlName="kind" id="kind" [ngClass]="{ 'is-invalid': (isFormSubmitted && addBookForm.controls.kind.errors) || (!addBookForm.controls.kind.pristine && addBookForm.controls.kind.invalid) }">
-                    <option >Violent</option>
-                    <option>Action</option>
-                    <option>Scence</option>
-                    <option>Comedy</option>
+                  <select [(ngModel)]="newBook.kind" name="kind" class="form-control" formControlName="kind" id="kind" [ngClass]="{ 'is-invalid': (isFormSubmitted && addBookForm.controls.kind.errors) || (!addBookForm.controls.kind.pristine && addBookForm.controls.kind.invalid) }">
+                   
+                    <option *ngFor="let cate of arrCate" [value]="cate"> {{cate.name}} </option>
+                   
                   </select>
 
                   <div class="invalid-feedback"

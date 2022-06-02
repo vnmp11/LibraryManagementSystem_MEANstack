@@ -13,7 +13,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Update Detail</h4>
-        <form class="form-sample">
+        <form class="form-sample" [formGroup]="editUserForm">
           <p class="card-description">
             Personal info
           </p>
@@ -21,11 +21,9 @@
           <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt=""/>
-                    <div class="file btn btn-primary btn-fw">
-                        Change Photo
-                        <input type="file" name="file"/>
-                    </div>
+                    <img id="showImage" src="http://localhost:3000/uploadImage/{{user.image}}" alt=""/>
+                    <input id="selected-image" type="file" class="form-control font-item padding" name="image" (change)="selectImage($event)" />
+
                 </div>
             </div>
             <div class="col-md-6">
@@ -33,47 +31,40 @@
 
                 <label class="col-sm-3 col-form-label">ID</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" />
+                  <input [disabled]="true" type="text" class="form-control" value="{{user._id}}"/>
                 </div>
 
                 <label class="col-sm-3 col-form-label required">Name</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" />
+                  <input id="name" type="text" class="form-control" value="{{user.name}}" name="name"/>
                 </div>
 
-                <label class="col-sm-3 col-form-label required">Gender</label>
-                <div class="col-sm-3 form-check ">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked>
-                      Male
-                      <i class="input-helper"></i>
-                    </label>
-                  </div>
-                  <div class="col-sm-3 form-check">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked>
-                      Female
-                      <i class="input-helper"></i>
-                    </label>
-                  </div>
-                  <div class="col-sm-3 form-check">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked>
-                      Other
-                      <i class="input-helper"></i>
-                    </label>
+                <label for="title" class="col-sm-3 col-form-label required">Sex</label>
+                <div class="col-sm-9 color-border">
+                  <select place class="form-control font-item font-color" id="sex" >
+                    <option value="" disabled selected hidden> ----Please select----</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+
+                  </select>
+
+                  <!-- <div class="invalid-feedback" *ngIf="(isFormSubmitted && addUserForm.controls.role.errors) || (!addUserForm.controls.role.pristine && addUserForm.controls.role.invalid)">
+                  <div *ngIf="addUserForm.controls.role.errors.required">Role must be selected</div>
+                  </div> -->
                 </div>
+
                 <label class="col-sm-3 col-form-label required">DOB</label>
                 <div class="col-sm-9">
-                  <input type="date" class="form-control" />
+                  <input id="dob" type="date" class="form-control" name="dob" />
                 </div>
                 <label class="col-sm-3 col-form-label required">Phone No.</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control" />
+                  <input id="phone" type="number" class="form-control" value="{{user.phone}}" name="phone"/>
                 </div>
                 <label class="col-sm-3 col-form-label ">Address</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" />
+                  <input id="address" type="text" class="form-control" value="{{user.address}}" name="address"/>
                 </div>
               </div>
             </div>
@@ -87,7 +78,7 @@
                 <i class="mdi mdi-close-circle-outline btn-icon-prepend"></i>
                 Cancel
             </button>
-            <button type="button" class="btn btn-primary btn-fw">
+            <button type="button" class="btn btn-primary btn-fw" (click)="update();">
               <i class="mdi mdi-account-check btn-icon-prepend"></i>
               Update Detail
             </button>
