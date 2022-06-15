@@ -260,14 +260,14 @@ $("#switch").on('click', function () {
                 <span class="badge badge-danger py-1 mb-2" style="background-color: #5E5CDB; border: #5E5CDB;">{{book.kind}}</span>
                 <div class="d-flex align-items-center credits pb-1" style="font-size: 10px;" ><img src="https://i.imgur.com/hlz6G90.png" width="16px"><span class="text-black-50 ml-2">{{book.quantity}} books available</span></div>
                 <h5 class="font-weight-bold pt-2">Author: {{book.author}}</h5>
-                <ngx-text-expander style="font-size: 12px;"
-                    text= "{{book.description}}  No Description"
+                <ngx-text-expander style="font-size: 12px;" *ngIf="book.description != ''"
+                    text= "{{book.description}}"
                     [max-char-count]="300"
                     less-text="show less"
                     more-text="show more"
                     [show-ellipse]="true">
                 </ngx-text-expander>
-                <p *ngIf="book.description == ''">
+                <p *ngIf="book.description == ''" style="font-style: italic; font-size: 10px;">
                   No description
                 </p>
 
