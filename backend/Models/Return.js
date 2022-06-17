@@ -11,7 +11,7 @@ const returnSchema = new mongoose.Schema({
 
     idBorrow: String,
     dateReturn: Date,
-    fine: String,
+    fine: Number,
     note: String
 });
 module.exports = mongoose.model("Return",returnSchema);

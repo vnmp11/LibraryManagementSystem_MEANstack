@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from '../service/book.service';
 import { BorrowService } from '../service/borrow.service';
 import { CategoryService } from '../service/category.service';
+import { ReturnService } from '../service/return.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -12,9 +13,12 @@ import { UserService } from '../service/user.service';
 export class DashboardComponent implements OnInit {
 
   arrBorrow:any = []
+  arrReturn:any = []
   arrUser:any = []
   arrCate:any = [];
   arrBook:any = [];
+
+  totalFine:any;
 
 
   toggleProBanner(event) {
@@ -23,7 +27,7 @@ export class DashboardComponent implements OnInit {
     document.querySelector('body').classList.toggle('removeProbanner');
   }
 
-  constructor(private cateService: CategoryService, private bookService: BookService, private borrowService: BorrowService,  private userService: UserService) { 
+  constructor( private returnService: ReturnService, private cateService: CategoryService, private bookService: BookService, private borrowService: BorrowService,  private userService: UserService) { 
     borrowService.getBorrow().subscribe(data=>{
       console.log(data);
       this.arrBorrow = data;
@@ -44,11 +48,21 @@ export class DashboardComponent implements OnInit {
       this.arrCate = data;
     });
 
-    
+    returnService.getReturn().subscribe(data=>{
+      console.log(data);
+      this.arrReturn = data;
+ 
+    });
   }
 
   ngOnInit() {
    
+  }
+
+  sumOfFine(){
+    return this.arrReturn.map(t => t.fine).reduce((a , b) => a + b);
+
+        //console.log(this.interfaceArray.map(t => t.income))
   }
 
   date: Date = new Date();
