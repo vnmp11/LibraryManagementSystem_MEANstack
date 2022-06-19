@@ -39,11 +39,12 @@ module.exports = router;
 //module
 const Category = require("./Models/Category");
 const User = require("./Models/User");
-
+const Count = require("./Models/Count");
 
 // Bcrypt
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const nodemailer = require("nodemailer");
 
 // JWT
 var jwt = require('jsonwebtoken');
@@ -518,6 +519,18 @@ app.post("/api/addBorrow", function(req,res){
                       console.log('Quantity updated successfully!')
                     }
                   });
+
+                  const d = new Date();
+                let month = d.getMonth();
+                Count.findOneAndUpdate({month:month+1}, {
+                $inc : {'borrow' : 1}                         
+                }, (error) => {
+                if (error) {
+                    console.log(error)
+                } else {
+                    console.log('Count updated successfully!')
+                }
+                });
             }
         });
     }else{
@@ -591,7 +604,19 @@ app.post("/api/addReturn", function(req,res){
                             } else {
                               console.log('Borrow updated successfully!')
                             }
-                          })
+                          });
+
+                          const d = new Date();
+                          let month = d.getMonth();
+                          Count.findOneAndUpdate({month:month+1}, {
+                          $inc : {'return' : 1}                         
+                          }, (error) => {
+                          if (error) {
+                              console.log(error)
+                          } else {
+                              console.log('QuantiCountty updated successfully!')
+                          }
+                          });
                     }        
         });
     }else{
@@ -648,3 +673,47 @@ app.post("/api/returnID", function(req,res){
 //         else { console.log('Error in Retriving User :' + JSON.stringify(err, undefined, 2)); }
 //     });
 //  });
+
+
+//lấy bảng Count
+app.post("/api/count", function(req,res){
+    Count.find(function(err,items){
+        if(err){
+            res.json({kq:0,"err":err});
+        }else{
+            res.json(items);
+        }
+    });
+ });
+
+//api truyền mail của người nhận và text
+app.post('/send-email', function (req, res) {
+
+    let transporter=nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth:{
+          user:"19522115@gm.uit.edu.vn",
+          pass:"1515780139"
+       }
+      })
+    let mailOptions={
+        from: "19522115@gm.uit.edu.vn",
+        // to:req.body.to, 
+        to:"phuongvu011101@gmail.com",
+        subject: "LMS reminder to return books on time",
+        text:req.body.text
+    }
+    
+    transporter.sendMail(mailOptions, (error, success) => {
+        if (error) {
+            console.log(error);
+        }else{
+            console.log("Email was sent successfully")
+        }
+        
+        });
+
+    });
+

@@ -31,4 +31,11 @@ export class BorrowService{
       console.log(res);
     });
   }
+
+  sentMail(mail:any){
+    console.log("readerOjb",mail);
+    return this.http.post("http://localhost:3000/send-email", mail).subscribe(res => {
+      console.log(res);
+    });
+  }
 }

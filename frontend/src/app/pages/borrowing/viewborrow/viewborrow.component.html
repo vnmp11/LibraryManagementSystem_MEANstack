@@ -132,7 +132,9 @@
                   </div>
                 <div class="form-group">
                     <label for="exampleTextarea1">Reminder</label>
-                    <textarea placeholder="Note if any" class="form-control"  id="note" rows="4" name="description" style="font-size: 14px;">Book Borrowed to you needs to be return to the library.</textarea>
+                    <textarea placeholder="Note if any" class="form-control"  id="remind" rows="4" name="description" style="font-size: 14px; color: lightslategray;">Dear {{this.user.name}},
+                    Please return the following book(s) immediately. Fine amount will be collected after the due date as per library policy. Kindly ignore this reminder if you have already returned the book(s).
+                    With regards, LMS.</textarea>
                   </div>
             </form>
       
@@ -142,7 +144,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Cancel</button>
-          <button type="button" (click)="post(); modal.close('Save click'); " class="btn btn-light" >Return Book</button>
+          <button type="button" (click)="send(); modal.close('Save click');" class="btn btn-light" >Send Email</button>
       
         </div>
       </ng-template>

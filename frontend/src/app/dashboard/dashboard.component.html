@@ -55,25 +55,23 @@
 </div>
 <div class="row">
   <div class="col-lg-7 grid-margin stretch-card">
-    <div class="card">
+    <div class="card" (click)="onClick();">
       <div class="card-body">
         <div class="d-flex flex-wrap justify-content-between">
-          <h4 class="card-title">Borrow And Return Statistics</h4>
+          <h4 class="card-title">Statistics</h4>
           <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal">
             <ul>
               <li>
-                <span class="legend-dots"></span>Books
-              </li>
-              <li>
-                <span class="legend-dots"></span>Users
+                <span class="legend-dots"></span>Returning
               </li>
               <li class="mr-0">
-                <span class="legend-dots"></span>Return
+                <span class="legend-dots"></span>Borrowing
               </li>
             </ul>
+            <!-- <button (click)="onClick()">Update chart</button> -->
           </div>
         </div>
-        <canvas baseChart #visitSaleChart [chartType]="'bar'" [datasets]="visitSaleChartData" [labels]="visitSaleChartLabels" [options]="visitSaleChartOptions" [colors]="visitSaleChartColors"></canvas>
+        <canvas baseChart #visitSaleChart [chartType]="'bar'" [datasets]="visitSaleChartData" [labels]="visitSaleChartLabels" [options]="visitSaleChartOptions" [colors]="visitSaleChartColors" (chartClick)="onClick()"></canvas>
       </div>
     </div>
   </div>

@@ -20,7 +20,7 @@
               <div class="form-group row">
                 <label for="title" class="col-sm-3 col-form-label required">Book ID</label>
                 <div class="col-sm-9 "  autocomplete="off">
-                  <input maxlength="31" id="idBook" class="form-control" type="text" name="title" [(ngModel)]="term" autocomplete="false" (keyup)="findBooks()">
+                  <input maxlength="31" id="idBook" class="form-control" type="text" name="title" [(ngModel)]="term" autocomplete="false" (keyup)="findBooks()" (ngModelChange)="findBooks()">
                  
                 </div>
               </div>
@@ -30,7 +30,7 @@
                 <div class="form-group row">
                   <label for="title" class="col-sm-3 col-form-label">Book Title</label>
                   <div class="col-sm-9">
-                    <input [disabled]="true" maxlength="31" id="title" class="form-control" type="text" name="title" id="titleBook">
+                    <input [disabled]="true" maxlength="31" id="titleBook" class="form-control" type="text" name="title" id="titleBook">
                   </div>
                 </div>
               </div>
@@ -39,7 +39,7 @@
 
           <div class="row">
               <table class="table table-bordered"
-                      style="margin-left: 20px;margin-right: 20px; margin-bottom: 30px;" *ngIf="book">
+                      style="margin-left: 20px;margin-right: 20px; margin-bottom: 30px;" *ngIf="book && check">
                 <tbody>
                   <tr>
                     <td rowspan="2">
@@ -69,7 +69,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label required">Student ID</label>
                 <div class="col-sm-9">
-                  <input id="idUser" class="form-control"  name="price" (keyup)="findUsers()">
+                  <input id="idUser" class="form-control"  name="price" (keyup)="findUsers()" (ngModelChange)="findUsers()">
 
                 </div>
               </div>
@@ -87,7 +87,7 @@
           
           <div class="row">
             <table class="table table-bordered"
-                    style="margin-left: 20px;margin-right: 20px; margin-bottom: 30px;" *ngIf="user">
+                    style="margin-left: 20px;margin-right: 20px; margin-bottom: 30px;" *ngIf="user && check">
               <tbody>
                 <tr>
                   <td rowspan="2">

@@ -17,16 +17,23 @@ export class ViewBooksComponent implements OnInit {
   book_image: any;
   selected_image = false;
   term = '';
+  arrCate:any = [];
+
 
   closeResult = '';
   editBookForm: FormGroup;
   isFormSubmitted = false;
   public newBook = {title:'', author:'', description:'', price:'', _id:"", image:"", status:"", idBorrower:'', kind :'',dateCreate:'',edition:'' ,publisher:'' ,quantity:'' ,copyright:'' };
 
-  constructor( private bookService: BookService, private modalService: NgbModal, private formBuilder: FormBuilder) { 
+  constructor(private cateService: CategoryService, private bookService: BookService, private modalService: NgbModal, private formBuilder: FormBuilder) { 
     bookService.getBook().subscribe(data=>{
       console.log(data);
       this.arrBook = data;
+    });
+
+    cateService.getCategory().subscribe(data=>{
+      console.log(data);
+      this.arrCate = data;
     });
 
   }
@@ -109,8 +116,8 @@ export class ViewBooksComponent implements OnInit {
     (document.getElementById('copyright') as HTMLSelectElement).value = item.copyright ; 
     (document.getElementById('publisher') as HTMLSelectElement).value = item.publisher ; 
     (document.getElementById('description') as HTMLSelectElement).value = item.description ; 
-    (document.getElementById("kind") as HTMLInputElement).value = item.kind;
-    this.book_image = item.image;
+    (document.getElementById('kind') as HTMLInputElement).value = item.kind;
+
 
   }
 
@@ -126,26 +133,24 @@ export class ViewBooksComponent implements OnInit {
     formData.append('description',  (document.getElementById('description') as HTMLSelectElement).value);
     formData.append('price', (document.getElementById('price') as HTMLSelectElement).value);
     formData.append('file', this.book_image);
-    formData.append('kind', (document.getElementById('kind') as HTMLSelectElement).value);
+    // formData.append('kind', (document.getElementById('kind') as HTMLSelectElement).value);
     formData.append('quantity', (document.getElementById('quantity') as HTMLSelectElement).value);
     formData.append('publisher', (document.getElementById('publisher') as HTMLSelectElement).value);
     formData.append('copyright', (document.getElementById('copyright') as HTMLSelectElement).value);
     formData.append('edition', (document.getElementById('edition') as HTMLSelectElement).value);
 
 
-    if (this.editBookForm.invalid) {
-      return;
-    }
-
     if (this.selected_image)
     {
       this.bookService.updateBook(formData);
 
     }else{
+
       this.bookService.updateABook(formData);
 
     }
 
+    this.refesh();
     Swal.fire('Success!', 'Updated Book Successfully!', 'success')
     this.refesh();
     this.selected_image = false;
@@ -178,4 +183,5 @@ export class ViewBooksComponent implements OnInit {
   }
 }
 
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';import { CategoryService } from 'src/app/service/category.service';
+

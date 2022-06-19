@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from '../service/book.service';
 import { BorrowService } from '../service/borrow.service';
 import { CategoryService } from '../service/category.service';
+import { CountService } from '../service/count.service';
 import { ReturnService } from '../service/return.service';
 import { UserService } from '../service/user.service';
 
@@ -17,6 +18,21 @@ export class DashboardComponent implements OnInit {
   arrUser:any = []
   arrCate:any = [];
   arrBook:any = [];
+  arrCount:any = [];
+
+  total:any = [];
+  total1:any;
+  total2:any;
+  total3:any;
+  total4:any;
+  total5:any;
+  total6:any;
+  total7:any;
+  total8:any;
+  total9:any;
+  total10:any;
+  total11:any;
+  total12:any;
 
   totalFine:any;
 
@@ -27,10 +43,15 @@ export class DashboardComponent implements OnInit {
     document.querySelector('body').classList.toggle('removeProbanner');
   }
 
-  constructor( private returnService: ReturnService, private cateService: CategoryService, private bookService: BookService, private borrowService: BorrowService,  private userService: UserService) { 
+  constructor( private countService: CountService, private returnService: ReturnService, private cateService: CategoryService, private bookService: BookService, private borrowService: BorrowService,  private userService: UserService) { 
     borrowService.getBorrow().subscribe(data=>{
       console.log(data);
       this.arrBorrow = data;
+    });
+    
+    countService.getCount().subscribe(data=>{
+      console.log(data);
+      this.arrCount = data;
     });
 
     bookService.getBook().subscribe(data=>{
@@ -53,41 +74,77 @@ export class DashboardComponent implements OnInit {
       this.arrReturn = data;
  
     });
+
+       
   }
 
-  ngOnInit() {
-   
+  ngOnInit() {   
+    
+  this.visitSaleChartData =  [
+  
+    {
+      label: 'Borrowing',
+      data: [0, 0, 0, 0, 0, 0, 0, 0,0, 0,0, 0],
+      borderWidth: 3,
+      fill: false,
+    },
+    {
+      label: 'Returing',
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      borderWidth: 3,
+      fill: false,
+    }];
+
+
+  }
+
+  onClick(){
+    this.countService.getCount().subscribe(data=>{
+      console.log(data);
+      this.arrCount = data;
+    });
+
+    this.total1 = this.arrCount.find(x => x.month == "1");
+    this.total2 = this.arrCount.find(x => x.month == "2");
+    this.total3 = this.arrCount.find(x => x.month == "3");
+    this.total4 = this.arrCount.find(x => x.month == "4");
+    this.total5 = this.arrCount.find(x => x.month == "5");
+    this.total6 = this.arrCount.find(x => x.month == "6");
+    this.total7 = this.arrCount.find(x => x.month == "7");
+    this.total8 = this.arrCount.find(x => x.month == "8");
+    this.total9 = this.arrCount.find(x => x.month == "9");
+    this.total10 = this.arrCount.find(x => x.month == "10");
+    this.total11 = this.arrCount.find(x => x.month == "11");
+    this.total12 = this.arrCount.find(x => x.month == "12");
+
+    this.visitSaleChartData =  [
+  
+      {
+        label: 'Borrowing',
+        data: [this.total1.borrow, this.total2.borrow, this.total3.borrow, this.total4.borrow, this.total5.borrow, this.total6.borrow, this.total7.borrow, this.total8.borrow, this.total9.borrow, this.total10.borrow, this.total11.borrow, this.total12.borrow],
+        borderWidth: 3,
+        fill: false,
+      },
+      {
+        label: 'Returing',
+        data: [this.total1.return, this.total2.return, this.total3.return, this.total4.return, this.total5.return, this.total6.return, this.total7.return, this.total8.return, this.total9.return, this.total10.return, this.total11.return, this.total12.return],
+        borderWidth: 3,
+        fill: false,
+      }];
+      
+
   }
 
   sumOfFine(){
+   
     return this.arrReturn.map(t => t.fine).reduce((a , b) => a + b);
-
-        //console.log(this.interfaceArray.map(t => t.income))
   }
 
   date: Date = new Date();
 
-  visitSaleChartData = [{
-    label: 'CHN',
-    data: [20, 40, 15, 35, 25, 50, 30, 20],
-    borderWidth: 1,
-    fill: false,
-  },
-  
-  {
-    label: 'USA',
-    data: [40, 30, 20, 10, 50, 15, 35, 40],
-    borderWidth: 1,
-    fill: false,
-  },
-  {
-    label: 'UK',
-    data: [70, 10, 30, 40, 25, 50, 15, 30],
-    borderWidth: 1,
-    fill: false,
-  }];
+  visitSaleChartData : any[];
 
-  visitSaleChartLabels = ["2013", "2014", "2014", "2015", "2016", "2017"];
+  visitSaleChartLabels = ["1", "2", "3", "4", "5", "6","7","8","9","10","11", "12"];
 
   visitSaleChartOptions = {
     responsive: true,
@@ -97,8 +154,8 @@ export class DashboardComponent implements OnInit {
             ticks: {
                 display: false,
                 min: 0,
-                stepSize: 20,
-                max: 80
+                stepSize: 5,
+                max: 20
             },
             gridLines: {
               drawBorder: false,
@@ -127,32 +184,27 @@ export class DashboardComponent implements OnInit {
   visitSaleChartColors = [
     {
       backgroundColor: [
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+        'rgba(254, 112, 150, 1)',
+
       ],
       borderColor: [
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-        'rgba(154, 85, 255, 1)',
-      ]
-    },
-    {
-      backgroundColor: [
         'rgba(254, 112, 150, 1)',
         'rgba(254, 112, 150, 1)',
         'rgba(254, 112, 150, 1)',
         'rgba(254, 112, 150, 1)',
         'rgba(254, 112, 150, 1)',
         'rgba(254, 112, 150, 1)',
-      ],
-      borderColor: [
         'rgba(254, 112, 150, 1)',
         'rgba(254, 112, 150, 1)',
         'rgba(254, 112, 150, 1)',
@@ -169,8 +221,20 @@ export class DashboardComponent implements OnInit {
         'rgba(177, 148, 250, 1)',
         'rgba(177, 148, 250, 1)',
         'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
       ],
       borderColor: [
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
+        'rgba(177, 148, 250, 1)',
         'rgba(177, 148, 250, 1)',
         'rgba(177, 148, 250, 1)',
         'rgba(177, 148, 250, 1)',

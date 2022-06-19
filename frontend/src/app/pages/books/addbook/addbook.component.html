@@ -22,7 +22,7 @@
               <div class="form-group row">
                 <label for="title" class="col-sm-3 col-form-label required">Title</label>
                 <div class="col-sm-9">
-                  <input maxlength="31" id="title" formControlName="title" class="form-control" type="text" [(ngModel)]="newBook.title"  name="title"
+                  <input maxlength="51" id="title" formControlName="title" class="form-control" type="text" [(ngModel)]="newBook.title"  name="title"
                   [ngClass]="{ 'is-invalid': (isFormSubmitted && addBookForm.controls.title.errors) || (!addBookForm.controls.title.pristine && addBookForm.controls.title.invalid) }">
                   <div class="invalid-feedback"
                   *ngIf="(isFormSubmitted && addBookForm.controls.title.errors) || (!addBookForm.controls.title.pristine && addBookForm.controls.title.invalid)">

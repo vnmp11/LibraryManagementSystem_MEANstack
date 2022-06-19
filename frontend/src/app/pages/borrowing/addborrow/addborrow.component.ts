@@ -20,7 +20,7 @@ export class AddBorrowComponent implements OnInit {
   arrBook:any = [];
   book:any;
   bookID:any;
-
+  idUser:any;
   arrUser:any = []
   user: any;
 
@@ -31,6 +31,7 @@ export class AddBorrowComponent implements OnInit {
   returndate:Date;
   max:any;
   return:any;
+  check = true;
 
   public newBorrow = {idBook:'', idUser:''};
 
@@ -47,6 +48,8 @@ export class AddBorrowComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.idUser = (document.getElementById('idUser') as HTMLSelectElement).value;
+
     this.maxdate = new Date();
     this.returndate = new Date(new Date().setDate(new Date().getDate() + 30)); 
     this.max = this.datepipe.transform(this.maxdate, 'yyyy-MM-dd');
@@ -93,16 +96,18 @@ export class AddBorrowComponent implements OnInit {
     
     console.log(this.newBorrow);
     this.borrowService.addBorrow(this.newBorrow);
-    Swal.fire('Success!', 'Added Borrowing Successfully!', 'success')
     this.resetForm();
+    Swal.fire('Success!', 'Added Borrowing Successfully!', 'success')
+
   }
 
   resetForm()
   {
-    (document.getElementById("idBook") as HTMLInputElement).value = "";
-    (document.getElementById("idUser") as HTMLInputElement).value = "";
-    (document.getElementById("name") as HTMLInputElement).value = "";
-    (document.getElementById("titleBook") as HTMLInputElement).value = "";
+    this.check = false;
+    (document.getElementById("idBook") as HTMLInputElement).value = " ";
+    (document.getElementById("idUser") as HTMLInputElement).value = " ";
+    (document.getElementById("nameUser") as HTMLInputElement).value = " ";
+    (document.getElementById("titleBook") as HTMLInputElement).value = " ";
     (document.getElementById("maxdate") as HTMLInputElement).value = null;
     (document.getElementById("returnDate") as HTMLInputElement).value = null;
 

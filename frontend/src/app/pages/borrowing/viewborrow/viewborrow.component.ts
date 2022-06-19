@@ -22,14 +22,25 @@ export class ViewBorrowComponent implements OnInit {
   max:any;
   borrowId:any;
   user:any;
+  public sendEmail = {to:'phuongvu011101@gmail.com', text:'Returned'};
+
 
   constructor(  private returnService: ReturnService, private borrowService: BorrowService, private userService: UserService, public datepipe: DatePipe,  private modalService: NgbModal){
       borrowService.getBorrow().subscribe(data=>{
         console.log(data);
         this.arrBorrow = data;
       });
-
       
+
+  }
+
+  send(){
+    this.sendEmail.to = (document.getElementById('email') as HTMLSelectElement).value;
+    this.sendEmail.text = (document.getElementById('remind') as HTMLSelectElement).value;
+    this.borrowService.sentMail(this.sendEmail);
+
+    Swal.fire('Success!', 'Sent Email Successfully!', 'success')
+
   }
 
   ngOnInit() {
@@ -100,6 +111,8 @@ export class ViewBorrowComponent implements OnInit {
       this.arrBorrow = data;
     });  
   }
+
+  
 
 
 }
